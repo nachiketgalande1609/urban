@@ -53,4 +53,4 @@ def addproduct():
 
 # Run the Flask application if this script is executed directly
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
