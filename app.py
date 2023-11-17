@@ -51,6 +51,11 @@ def account():
 def addproduct():
     return render_template('addproduct.html')
 
+@app.route('/cart/')
+@login_required
+def cart():
+    return render_template('cart.html')
+
 # Run the Flask application if this script is executed directly
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000, debug=False)
+    app.run(debug=True)

@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h3 class="card-title">Your Cart</h3>
+                        <div class="cart-items">
+                            <!-- Loop through cart items retrieved from backend and display -->
+                            {% for item in cart_items %}
+                            <div class="cart-item">
+                                <div class="cart-item-details">
+                                    <h4>{{ item.product.name }}</h4>
+                                    <p>Price: ${{ item.product.price }}</p>
+                                    <!-- Additional item details -->
+                                </div>
+                                <div class="cart-item-actions">
+                                    <button onclick="removeFromCart('{{ item.id }}')" class="btn btn-sm btn-danger">Remove</button>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            <!-- End of cart items loop -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">Order Summary</h3>
+                        <p>Total Items: {{ cart_items|length }}</p>
+                        <!-- Additional order summary details -->
+                        <a href="/checkout" class="btn btn-primary">Proceed to Payment</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function removeFromCart(itemId) {
+            // Implement AJAX request to remove item from the cart
+            // Update UI accordingly after removing the item
+        }
+    </script>
+{% endblock %}

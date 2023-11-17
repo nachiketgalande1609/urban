@@ -18,7 +18,11 @@
                         <h5 class="card-title">{{ product.name }}</h5>
                         <p class="card-text">${{ product.price }}</p>
                         {% if session.logged_in %}
-                        <a href="#" class="btn btn-primary">Add to Cart</a>
+                        <form name="add_to_cart_form">
+                            <input type="hidden" name="product_id" value="{{ product.id }}">
+                            <!-- Other hidden fields if needed -->
+                            <button type="submit" class="btn btn-primary">Add to Cart</button>
+                        </form>
                         {% endif %}
                         <!-- Additional product details -->
                     </div>
@@ -29,4 +33,4 @@
     </div>
 </div>
 
-{% endblock %}
+{% endblock %}  
