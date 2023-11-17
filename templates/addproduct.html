@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="card-wrapper">
+        <div class="card">
+
+            <h1 class="center">Add Product</h1>
+            <form name="add_product_form">
+
+                <label for="name">Name</label>
+                <input type="text" name="name" class="field" required>
+
+                <label for="price">Price</label>
+                <input type="text" name="price" class="field" required>
+
+                <p class="error error--hidden"></p>
+
+                <input type="submit" value="Add" class="btn">
+            </form>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

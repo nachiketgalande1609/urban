@@ -9,9 +9,9 @@ app.secret_key = "njSND78adhsbasb7has7hd7aHCaiu98hsvvu"
 
 # MongoDB Configuration
 password = "Mazaappu@1"
-uri = "mongodb+srv://nachiketgalande:Mazaappu%401@login.ohobhje.mongodb.net/"
+uri = "mongodb://localhost:27017/"
 client = MongoClient(uri, server_api=ServerApi('1'))
-db = client.serenityshops
+db = client.urban
 
 # Decorators
 def login_required(f):
@@ -30,11 +30,11 @@ app.register_blueprint(user_bp)
 def home():
     return render_template('home.html')
 
-@app.route('/login')
+@app.route('/login/')
 def login():
     return render_template('login.html')
 
-@app.route('/signup')
+@app.route('/signup/')
 def signup():
     return render_template('signup.html')
 
@@ -42,6 +42,11 @@ def signup():
 @login_required
 def account():
     return render_template('account.html')
+
+@app.route('/addproduct/')
+@login_required
+def addproduct():
+    return render_template('addproduct.html')
 
 # Run the Flask application if this script is executed directly
 if __name__ == "__main__":

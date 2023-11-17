@@ -1,25 +1,25 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="container">
-        <div class="card-wrapper">
-            <div class="card">
-    
-                <h1 class="center">Log In</h1>
-                <form name="login_form">
-    
-                    <label for="email">Email</label>
-                    <input type="email" name="email" class="field" required>
-    
-                    <label for="password">Password</label>
-                    <input type="text" name="password" class="field" required>
-    
-                    <p class="error error--hidden"></p>
-    
-                    <input type="submit" value="Login" class="btn">
-                </form>
-    
-            </div>
+<div class="container">
+    <div class="card-wrapper">
+        <div class="card">
+
+            <h1 class="center">Log In</h1>
+            <form name="login_form">
+
+                <label for="email">Email</label>
+                <input type="email" name="email" class="field" required>
+
+                <label for="password">Password</label>
+                <input type="text" name="password" class="field" required>
+
+                <p class="error error--hidden"></p>
+
+                <input type="submit" value="Login" class="btn">
+            </form>
+
         </div>
     </div>
+</div>
 {% endblock %}
