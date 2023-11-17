@@ -10,7 +10,7 @@ app.secret_key = "njSND78adhsbasb7has7hd7aHCaiu98hsvvu"
 
 # MongoDB Configuration
 password = "Mazaappu@1"
-uri = "mongodb://localhost:27017/"
+uri = "mongodb+srv://nachiketgalande:Mazaappu%401@urban.0mj15jx.mongodb.net/"
 client = MongoClient(uri, server_api=ServerApi('1'))
 db = client.urban
 
