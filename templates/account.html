@@ -1,20 +1,52 @@
+
+
 {% extends "base.html" %}
 
 {% block content %}
     <div class="container">
-        <div class="card-wrapper">
-            <div class="card">
-                <h1 class="canter">Dashboard</h1>
-                <p class="center">You are currently logged in</p>
-                <div class="center">
-                    <a href="/user/signout" class="btn btn--secondary">Sign Out</a>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h1 class="card-title">Profile</h1>
+                        <p><strong>Name:</strong> {{ session['user']['name'] }}</p>
+                        <p><strong>Email:</strong> {{ session['user']['email'] }}</p>
+                        <a href="/edit-profile" class="btn btn-primary">Edit Profile</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">Change Password</h3>
+                        <form action="/change-password" method="POST">
+                            <!-- Include fields for changing password -->
+                            <div class="form-group">
+                                <label for="currentPassword">Current Password</label>
+                                <input type="password" class="form-control" id="currentPassword" name="currentPassword">
+                            </div>
+                            <div class="form-group">
+                                <label for="newPassword">New Password</label>
+                                <input type="password" class="form-control" id="newPassword" name="newPassword">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Change Password</button>
+                        </form>
+                    </div>
                 </div>
             </div>
-            <div class="card">
-                <h2 class="center">Your info</h2>
-                <p><strong>ID: </strong>{{ session['user']['_id'] }}</p>
-                <p><strong>Name: </strong>{{ session['user']['name'] }}</p>
-                <p><strong>Email: </strong>{{ session['user']['email'] }}</p>
+            <div class="col-md-8">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h3 class="card-title">Order History</h3>
+                        <!-- Display order history, past purchases, etc. -->
+                        <!-- Include a table or list to show order details -->
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">Saved Addresses</h3>
+                        <!-- Display saved addresses for shipping -->
+                        <!-- Include a list or form for managing addresses -->
+                    </div>
+                </div>
             </div>
         </div>
     </div>

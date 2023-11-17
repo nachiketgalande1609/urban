@@ -33,7 +33,7 @@ class User:
     
     def signout(self):
         session.clear()
-        return redirect('/login')
+        return redirect('/')
     
     def login(self):
         user = db.users.find_one({"email": request.form.get('email')})

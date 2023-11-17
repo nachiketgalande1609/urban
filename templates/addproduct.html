@@ -6,13 +6,16 @@
         <div class="card">
 
             <h1 class="center">Add Product</h1>
-            <form name="add_product_form">
+            <form name="add_product_form" enctype="multipart/form-data">
 
                 <label for="name">Name</label>
                 <input type="text" name="name" class="field" required>
 
                 <label for="price">Price</label>
                 <input type="text" name="price" class="field" required>
+
+                <label for="image">Image</label>
+                <input type="file" name="image" accept="image/*" class="field" required>
 
                 <p class="error error--hidden"></p>
 

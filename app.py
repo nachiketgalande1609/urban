@@ -1,6 +1,7 @@
-from flask import Flask, render_template, redirect, session
+from flask import Flask, render_template, redirect, session, url_for
 from functools import wraps
 from user.routes import user_bp
+from product.routes import product_bp
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 
@@ -25,10 +26,12 @@ def login_required(f):
 
 # Register the user blueprint with the Flask app
 app.register_blueprint(user_bp)
+app.register_blueprint(product_bp)
 
 @app.route('/')
 def home():
-    return render_template('home.html')
+    products = db.products.find()  # Fetch products from the database
+    return render_template('home.html', products=products)
 
 @app.route('/login/')
 def login():
