@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, session, url_for
+from flask import Flask, render_template, redirect, session, url_for, request
 from functools import wraps
 from user.routes import user_bp
 from product.routes import product_bp
@@ -10,7 +10,7 @@ app.secret_key = "njSND78adhsbasb7has7hd7aHCaiu98hsvvu"
 
 # MongoDB Configuration
 password = "Mazaappu@1"
-uri = "mongodb+srv://nachiketgalande:Mazaappu%401@urban.0mj15jx.mongodb.net/"
+uri = "mongodb://localhost:27017/"
 client = MongoClient(uri, server_api=ServerApi('1'))
 db = client.urban
 
@@ -30,7 +30,18 @@ app.register_blueprint(product_bp)
 
 @app.route('/')
 def home():
-    products = db.products.find()  # Fetch products from the database
+    selected_category = request.args.get('category')
+    sort_order = request.args.get('sort')
+
+    if selected_category:
+        products = db.products.find({"category": selected_category})
+    else:
+        products = db.products.find()
+
+    if sort_order == 'asc':
+        products = products.sort("price", 1)
+    elif sort_order == 'desc':
+        products = products.sort("price", -1)
     return render_template('home.html', products=products)
 
 @app.route('/login/')

@@ -12,7 +12,8 @@ class Product:
         product = {
             "_id": uuid.uuid4().hex,                            # Generate unique id
             "name": request.form.get('name'),
-            "price": request.form.get('price'),
+            "price": float(request.form.get('price')),
+            "category": request.form.get('category'),
         }
 
         image_file = request.files['image']

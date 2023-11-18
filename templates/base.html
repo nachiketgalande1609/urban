@@ -25,22 +25,41 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            {% if session.logged_in %}
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('cart') }}">Cart</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('account') }}">Account</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('addproduct') }}">Add Product</a>
-                    </li>
-                    <li>
-                        <a class="nav-link" href="/user/signout">Sign Out</a>
-                    </li>
-                </ul>
-            {% else %}
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Men
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ url_for('home', category='Topwear') }}">Topwear</a>
+                        <a class="dropdown-item" href="{{ url_for('home', category='Bottomwear') }}">Bottomwear</a>
+                        <a class="dropdown-item" href="{{ url_for('home', category='Indian & Festive Wear') }}">Indian &
+                            Festive Wear</a>
+                        <a class="dropdown-item"
+                            href="{{ url_for('home', category='Innerwear & Sleepwear') }}">Innerwear & Sleepwear</a>
+                        <a class="dropdown-item" href="{{ url_for('home', category='Footwear') }}">Footwear</a>
+                        <a class="dropdown-item" href="{{ url_for('home', category='Sports & Active Wear') }}">Sports &
+                            Active Wear</a>
+                        <a class="dropdown-item" href="{{ url_for('home', category='Gadgets') }}">Gadgets</a>
+                        <a class="dropdown-item" href="{{ url_for('home', category='Fashion Accessories') }}">Fashion
+                            Accessories</a>
+                    </div>
+                </li>
+                {% if session.logged_in %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('cart') }}">Cart</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('account') }}">Account</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('addproduct') }}">Add Product</a>
+                </li>
+                <li>
+                    <a class="nav-link" href="/user/signout">Sign Out</a>
+                </li>
+                {% else %}
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('login') }}">Login</a>
@@ -48,18 +67,18 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('signup') }}">Signup</a>
                     </li>
+                    {% endif %}
                 </ul>
-            {% endif %}
-
         </div>
     </nav>
     {% block content %}
     {% endblock %}
 
     <!-- Bootstrap js -->
-    <!-- <script src="/static/js/bootstrap.min.js"></script> -->
     <script src="/static/js/jquery.js"></script>
     <script src="/static/js/scripts.js"></script>
+    <script src="/static/js/bootstrap.js"></script>
+
 </body>
 
 </html>
