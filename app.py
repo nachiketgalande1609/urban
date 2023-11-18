@@ -70,15 +70,18 @@ def cart():
     user_id = session.get('user').get('_id')  # Get the current user's ID from the session
     user_cart_items = db.cart.find({'user_id': user_id})  # Fetch cart items for the current user
     cart_with_product_details = []
+    total_price = 0
 
     for item in user_cart_items:
         product_id = item.get('product_id')
-        product_details = db.products.find_one({'_id': product_id}, {'name': 1, 'image_path': 1})
+        product_details = db.products.find_one({'_id': product_id}, {'name': 1, 'image_path': 1, 'price': 1})
         if product_details:
             item['product_name'] = product_details.get('name')
             item['image_path'] = product_details.get('image_path')
+            item['price'] = product_details.get('price')
             cart_with_product_details.append(item)
-    return render_template('cart.html', cart_items=cart_with_product_details)
+            total_price += product_details.get('price', 0)
+    return render_template('cart.html', cart_items=cart_with_product_details, total_price=total_price)
 
 
 # Run the Flask application if this script is executed directly

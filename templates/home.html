@@ -28,15 +28,22 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ product.name }}</h5>
                         <p class="card-text">{{ product.category }}</p>
-                        <p class="card-text">${{ product.price }}</p>
+                        <p class="card-text">₹{{ product.price }}</p>
                         {% if session.logged_in %}
-                        <button class="btn btn-primary add-to-cart-btn" data-product-id="{{ product._id }}">Add to Cart</button>
+                        <div class="d-flex justify-content-center"> <!-- Center-align the button -->
+                            <button class="btn btn-primary add-to-cart-btn" data-product-id="{{ product._id }}">Add to Cart</button>
+                        </div>
                         {% endif %}
                         <!-- Additional product details -->
                     </div>
                 </div>
             </div>
             {% endfor %}
+        </div>
+    </div>
+    <div class="modal-background">
+        <div class="modal-content alert alert-success" role="alert">
+            Item has been added to cart!
         </div>
     </div>
 </div>
