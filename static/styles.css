@@ -236,3 +236,11 @@ input[type=submit] {
 .btn-primary:hover {
   background-color: #0056b3;
 }
+
+.cart-item {
+  border: solid #000 1px;
+}
+
+.btn-remove {
+  background-color: red;
+}

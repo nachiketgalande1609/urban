@@ -30,6 +30,8 @@ app.register_blueprint(product_bp)
 
 @app.route('/')
 def home():
+    from user.models import User
+    user = User()
     selected_category = request.args.get('category')
     sort_order = request.args.get('sort')
 
@@ -42,7 +44,7 @@ def home():
         products = products.sort("price", 1)
     elif sort_order == 'desc':
         products = products.sort("price", -1)
-    return render_template('home.html', products=products)
+    return render_template('home.html', products=products, user=user)
 
 @app.route('/login/')
 def login():
@@ -65,7 +67,19 @@ def addproduct():
 @app.route('/cart/')
 @login_required
 def cart():
-    return render_template('cart.html')
+    user_id = session.get('user').get('_id')  # Get the current user's ID from the session
+    user_cart_items = db.cart.find({'user_id': user_id})  # Fetch cart items for the current user
+    cart_with_product_details = []
+
+    for item in user_cart_items:
+        product_id = item.get('product_id')
+        product_details = db.products.find_one({'_id': product_id}, {'name': 1, 'image_path': 1})
+        if product_details:
+            item['product_name'] = product_details.get('name')
+            item['image_path'] = product_details.get('image_path')
+            cart_with_product_details.append(item)
+    return render_template('cart.html', cart_items=cart_with_product_details)
+
 
 # Run the Flask application if this script is executed directly
 if __name__ == "__main__":
