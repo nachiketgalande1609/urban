@@ -123,3 +123,59 @@ function removeFromCart(itemId) {
         }
     });
 }
+
+// Render gender specific categories on AddProduct page
+document.addEventListener('DOMContentLoaded', function () {
+    const category = document.getElementById('category');
+    const gender = document.getElementById('gender');
+    const categoryOptions = Array.from(category.options);
+
+    gender.addEventListener('change', function () {
+        const selectedGender = document.getElementById('gender').value;
+
+        categoryOptions.forEach(option => {
+            const genderAttribute = option.getAttribute('data-gender');
+            if (genderAttribute === selectedGender || genderAttribute === null) {
+                option.style.display = 'block';
+            } else {
+                option.style.display = 'none';
+            }
+        });
+    });
+});
+
+// Send form data using a POST request for password change
+$("form[name=change_password]").submit(function (e) {
+    e.preventDefault();
+    var $form = $(this);
+    var $error = $form.find(".error");
+
+    var currentPassword = $form.find('input[name=currentPassword]').val();
+    var newPassword = $form.find('input[name=newPassword]').val();
+
+    // Create an object with the form data
+    var formData = {
+        currentPassword: currentPassword,
+        newPassword: newPassword
+    };
+
+    $.ajax({
+        url: "../user/change_password", // Update the URL to match your backend route for password change
+        type: "POST",
+        data: formData,
+        dataType: "json",
+        success: function (resp) {
+            console.log('Password changed successfully');
+            $error.addClass("error--hidden");
+            $('.modal-background').addClass('show');
+                        $('.modal-content').fadeIn(); // Show the alert content
+                        setTimeout(function () {
+                            $('.modal-background').removeClass('show');
+                            $('.modal-content').fadeOut('slow'); // Hide the alert content
+                        }, 1000);
+        },
+        error: function (resp) {
+            $error.text(resp.responseJSON.error).removeClass("error--hidden");
+        }
+    });
+});

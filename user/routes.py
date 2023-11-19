@@ -52,3 +52,23 @@ def remove_from_cart(item_id):
         return jsonify({"message": "Product added to cart successfully"}), 200
     else:
         return jsonify({"error": "Missing user ID or product ID"}), 400
+    
+    
+@user_bp.route('/change_password', methods=['POST'])
+def change_password():
+    from app import db
+    from passlib.hash import pbkdf2_sha256
+
+    current_password = request.form['currentPassword']
+    new_password = request.form['newPassword']
+    current_user_id = session.get('user').get('_id')
+    
+    current_user = db.users.find_one({"_id": current_user_id})
+    if current_user and pbkdf2_sha256.verify(current_password, current_user['password']):
+        print("Passwords match")
+        new_hashed_password = pbkdf2_sha256.hash(new_password)
+        db.users.update_one({"_id": current_user_id}, {"$set": {"password": new_hashed_password}})
+        return jsonify({"message": "Password updated successfully"}), 200
+    else:
+        print("Passwords do not match")
+        return jsonify({"error": "Passwords do not match"}), 401

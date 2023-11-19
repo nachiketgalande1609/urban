@@ -14,6 +14,7 @@ class Product:
             "name": request.form.get('name'),
             "price": float(request.form.get('price')),
             "category": request.form.get('category'),
+            "gender": request.form.get('gender'),
         }
 
         image_file = request.files['image']

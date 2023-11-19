@@ -33,10 +33,11 @@ def home():
     from user.models import User
     user = User()
     selected_category = request.args.get('category')
+    selected_gender = request.args.get('gender')
     sort_order = request.args.get('sort')
 
     if selected_category:
-        products = db.products.find({"category": selected_category})
+        products = db.products.find({"category": selected_category, "gender": selected_gender})
     else:
         products = db.products.find()
 
@@ -44,6 +45,7 @@ def home():
         products = products.sort("price", 1)
     elif sort_order == 'desc':
         products = products.sort("price", -1)
+
     return render_template('home.html', products=products, user=user)
 
 @app.route('/login/')

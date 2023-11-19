@@ -31,6 +31,10 @@ body {
   line-height: 28px;
   color: var(--black);
   background: var(--white);
+  /* background-image: url("../static/images/bg.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed; */
 }
 
 /* Typography */
@@ -220,10 +224,12 @@ input[type=submit] {
 
 .card-title {
   font-size: 1.25rem;
+  margin: 0;
 }
 
 .card-text {
   font-size: 1rem;
+  margin: 0;
 }
 
 .btn-primary {
@@ -285,4 +291,25 @@ input[type=submit] {
   background-color: #d4edda;
   border-color: #c3e6cb;
   color: #155724;
+}
+
+.add-to-cart-btn {
+  margin-top: 10px;
+}
+
+.card-body {
+  padding: 0;
+  padding-top: 10px;
+}
+
+.container-fluid {
+  width: 98%;
+}
+
+.filter-card {
+  border: solid rgb(212, 212, 212) 1px;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 8px 26px -4px rgba(0,0,0,0.15);
+  margin-bottom: 10px;
 }

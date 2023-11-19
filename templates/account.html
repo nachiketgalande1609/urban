@@ -17,7 +17,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h3 class="card-title">Change Password</h3>
-                        <form action="/change-password" method="POST">
+                        <form name="change_password" method="POST">
                             <!-- Include fields for changing password -->
                             <div class="form-group">
                                 <label for="currentPassword">Current Password</label>
@@ -27,6 +27,7 @@
                                 <label for="newPassword">New Password</label>
                                 <input type="password" class="form-control" id="newPassword" name="newPassword">
                             </div>
+                            <p class="error error--hidden"></p>
                             <button type="submit" class="btn btn-primary">Change Password</button>
                         </form>
                     </div>
@@ -47,6 +48,13 @@
                         <!-- Include a list or form for managing addresses -->
                     </div>
                 </div>
+
+                <div class="modal-background">
+                    <div class="modal-content alert alert-success" role="alert">
+                        Password has been changed successfully!
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>

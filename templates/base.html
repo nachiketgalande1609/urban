@@ -14,62 +14,98 @@
 
 <body>
     <!-- Just an image -->
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <a class="navbar-brand" href="{{ url_for('home') }}">
-            <img src="../static/images/logo.png" height="50" alt="">
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <a class="navbar-brand" href="{{ url_for('home') }}">
+                <img src="../static/images/logo.png" height="50" alt="">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Men
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ url_for('home', category='Topwear') }}">Topwear</a>
-                        <a class="dropdown-item" href="{{ url_for('home', category='Bottomwear') }}">Bottomwear</a>
-                        <a class="dropdown-item" href="{{ url_for('home', category='Indian & Festive Wear') }}">Indian &
-                            Festive Wear</a>
-                        <a class="dropdown-item"
-                            href="{{ url_for('home', category='Innerwear & Sleepwear') }}">Innerwear & Sleepwear</a>
-                        <a class="dropdown-item" href="{{ url_for('home', category='Footwear') }}">Footwear</a>
-                        <a class="dropdown-item" href="{{ url_for('home', category='Sports & Active Wear') }}">Sports &
-                            Active Wear</a>
-                        <a class="dropdown-item" href="{{ url_for('home', category='Gadgets') }}">Gadgets</a>
-                        <a class="dropdown-item" href="{{ url_for('home', category='Fashion Accessories') }}">Fashion
-                            Accessories</a>
-                    </div>
-                </li>
-                {% if session.logged_in %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('cart') }}">Cart</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('account') }}">Account</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('addproduct') }}">Add Product</a>
-                </li>
-                <li>
-                    <a class="nav-link" href="/user/signout">Sign Out</a>
-                </li>
-                {% else %}
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Women
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item"
+                                href="{{ url_for('home', category='Kurtas & Suits', gender='Women') }}">Kurtas &
+                                Suits</a>
+                            <a class="dropdown-item"
+                                href="{{ url_for('home', category='Sarees', gender='Women') }}">Sarees</a>
+                            <a class="dropdown-item"
+                                href="{{ url_for('home', category='Jackets', gender='Women') }}">Jackets</a>
+                            <a class="dropdown-item"
+                                href="{{ url_for('home', category='Dresses', gender='Women') }}">Dresses</a>
+                            <a class="dropdown-item"
+                                href="{{ url_for('home', category='Tops', gender='Women') }}">Tops</a>
+                            <a class="dropdown-item"
+                                href="{{ url_for('home', category='Footwear', gender='Women') }}">Footwear</a>
+                            <a class="dropdown-item"
+                                href="{{ url_for('home', category='Sports & Active Wear', gender='Women') }}">Sports &
+                                Active Wear</a>
+                            <a class="dropdown-item"
+                                href="{{ url_for('home', category='Gadgets', gender='Women') }}">Gadgets</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Men
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item"
+                                href="{{ url_for('home', category='Topwear', gender='Men') }}">Topwear</a>
+                            <a class="dropdown-item"
+                                href="{{ url_for('home', category='Bottomwear', gender='Men') }}">Bottomwear</a>
+                            <a class="dropdown-item"
+                                href="{{ url_for('home', category='Indian & Festive Wear', gender='Men') }}">Indian &
+                                Festive Wear</a>
+                            <a class="dropdown-item"
+                                href="{{ url_for('home', category='Innerwear & Sleepwear', gender='Men') }}">Innerwear
+                                & Sleepwear</a>
+                            <a class="dropdown-item"
+                                href="{{ url_for('home', category='Footwear', gender='Men') }}">Footwear</a>
+                            <a class="dropdown-item"
+                                href="{{ url_for('home', category='Sports & Active Wear', gender='Men') }}">Sports &
+                                Active Wear</a>
+                            <a class="dropdown-item"
+                                href="{{ url_for('home', category='Gadgets', gender='Men') }}">Gadgets</a>
+                            <a class="dropdown-item"
+                                href="{{ url_for('home', category='Fashion Accessories', gender='Men') }}">Fashion
+                                Accessories</a>
+                        </div>
+                    </li>
+                    {% if session.logged_in %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+                        <a class="nav-link" href="{{ url_for('cart') }}">Cart</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('signup') }}">Signup</a>
+                        <a class="nav-link" href="{{ url_for('account') }}">Account</a>
                     </li>
-                    {% endif %}
-                </ul>
-        </div>
-    </nav>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('addproduct') }}">Add Product</a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="/user/signout">Sign Out</a>
+                    </li>
+                    {% else %}
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('signup') }}">Signup</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+            </div>
+        </nav>
+    </div>
     {% block content %}
     {% endblock %}
 

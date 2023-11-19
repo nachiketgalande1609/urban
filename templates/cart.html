@@ -16,7 +16,7 @@
                         <div class="col-md-8">
                             <div class="card-body">
                                 <h5 class="card-title">{{ item.product_name }}</h5>
-                                <p class="card-text">Price: ₹{{ item.price }}</p>
+                                <p class="card-text">Price: ₹ {{ item.price }}</p>
                                 <button onclick="removeFromCart('{{ item.product_id }}')" class="btn btn-sm btn-danger">Remove</button>
                             </div>
                         </div>
@@ -31,7 +31,7 @@
                     <h3 class="card-title">Order Summary</h3>
                     <!-- Additional order summary details -->
                     <p>Total Items: {{ cart_items|length }}</p>
-                    <p>Total Price: ₹{{ total_price }}</p>
+                    <p>Total Price: ₹ {{ total_price }}</p>
                     <a href="/checkout" class="btn btn-primary">Proceed to Payment</a>
                 </div>
             </div>

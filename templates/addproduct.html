@@ -17,7 +17,14 @@
                 <label for="image">Image</label>
                 <input type="file" name="image" accept="image/*" class="field" required>
 
-                <label for="category">Category</label>
+                <label for="gender">Gender</label>
+                <select name="gender" id="gender" class="field">
+                    <option value="" disabled selected>Select Gender</option>
+                    <option value="Men">Men</option>
+                    <option value="Women">Women</option>
+                </select>
+
+                <!-- <label for="category">Category</label>
                 <select name="category" id="category" class="field">
                     <option value="Topwear">Topwear</option>
                     <option value="Bottomwear">Bottomwear</option>
@@ -27,6 +34,29 @@
                     <option value="Sports & Active Wear">Sports & Active Wear</option>
                     <option value="Gadgets">Gadgets</option>
                     <option value="Fashion Accessories">Fashion Accessories</option>
+                    <option value="Kurtas & Suits">Kurtas & Suits</option>
+                    <option value="Sarees">Sarees</option>
+                    <option value="Jackets">Jackets</option>
+                    <option value="Dresses">Dresses</option>
+                    <option value="Tops">Tops</option>
+                </select> -->
+
+                <label for="category">Category</label>
+                <select name="category" id="category" class="field">
+                    <option value="" disabled selected>Select Category</option>
+                    <option value="Topwear" data-gender="Men">Topwear</option>
+                    <option value="Bottomwear" data-gender="Men">Bottomwear</option>
+                    <option value="Indian & Festive Wear" data-gender="Men">Indian & Festive Wear</option>
+                    <option value="Innerwear & Sleepwear" data-gender="Men">Innerwear & Sleepwear</option>
+                    <option value="Footwear">Footwear</option>
+                    <option value="Sports & Active Wear">Sports & Active Wear</option>
+                    <option value="Gadgets">Gadgets</option>
+                    <option value="Fashion Accessories" data-gender="Men">Fashion Accessories</option>
+                    <option value="Kurtas & Suits" data-gender="Women">Kurtas & Suits</option>
+                    <option value="Sarees" data-gender="Women">Sarees</option>
+                    <option value="Jackets" data-gender="Women">Jackets</option>
+                    <option value="Dresses" data-gender="Women">Dresses</option>
+                    <option value="Tops" data-gender="Women">Tops</option>
                 </select>
 
                 <p class="error error--hidden"></p>
