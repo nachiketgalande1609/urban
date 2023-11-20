@@ -14,7 +14,7 @@ uri = "mongodb://localhost:27017/"
 client = MongoClient(uri, server_api=ServerApi('1'))
 db = client.urban
 
-# Decorators
+# Check if user is logged in
 def login_required(f):
     @wraps(f)
     def wrap(*arg, **kwargs):
@@ -24,10 +24,11 @@ def login_required(f):
             return redirect('/')
     return wrap
 
-# Register the user blueprint with the Flask app
+# Register the user and product blueprint routes with the Flask app
 app.register_blueprint(user_bp)
 app.register_blueprint(product_bp)
 
+# Home route
 @app.route('/')
 def home():
     from user.models import User
@@ -46,26 +47,37 @@ def home():
     elif sort_order == 'desc':
         products = products.sort("price", -1)
 
-    return render_template('home.html', products=products, user=user)
+    if selected_category==None:
+        selected_category=''
 
+    product_count = len(list(products))
+    products.rewind()
+
+    return render_template('home.html', products=products, user=user, selected_category=selected_category, product_count=product_count)
+
+# Login route
 @app.route('/login/')
 def login():
     return render_template('login.html')
 
+# Signup route
 @app.route('/signup/')
 def signup():
     return render_template('signup.html')
 
+# Account route
 @app.route('/account/')
 @login_required
 def account():
     return render_template('account.html')
 
+# Add Product route
 @app.route('/addproduct/')
 @login_required
 def addproduct():
     return render_template('addproduct.html')
 
+# Cart route
 @app.route('/cart/')
 @login_required
 def cart():
@@ -87,5 +99,8 @@ def cart():
 
 
 # Run the Flask application if this script is executed directly
-if __name__ == "__main__":
+# if __name__ == '__main__':
+#     app.run(host='0.0.0.0', port=5000)
+
+if __name__ == '__main__':
     app.run(debug=True)

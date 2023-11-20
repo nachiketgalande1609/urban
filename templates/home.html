@@ -43,15 +43,46 @@
         <!-- End Sidebar -->
 
         <div class="col-lg-10 col-md-9 col-sm-9">
-            <div class="background-container">
-                <div class="overlay"></div>
-                <h1>New Collection</h1>
+            <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
+                        class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                        aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                        aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item active" data-bs-interval="3000">
+                        <img src="../static/images/caro1.jpg" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item" data-bs-interval="3000">
+                        <img src="../static/images/caro2.jpg" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item" data-bs-interval="3000">
+                        <img src="../static/images/caro3.jpg" class="d-block w-100" alt="...">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
             </div>
 
-            <div class="row justify-content-end">
-                <form id="sortForm" class="form-inline mt-3 mr-3">
-                    <div class="form-group">
-                        <select class="custom-select" name="sort" id="sort" onchange="this.form.submit()">
+            <div class="d-flex justify-content-between align-items-center breadrow">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ url_for('home') }}" class="bread_home">All</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ selected_category }}</li>
+                </ol>
+                <form id="sortForm" class="form-inline">
+                    <div class="form-group mb-0">
+                        <select class="form-select" name="sort" id="sort" onchange="this.form.submit()">
                             <option value="" disabled selected>Sort</option>
                             <option value="asc">Low to High</option>
                             <option value="desc">High to Low</option>
@@ -59,18 +90,22 @@
                     </div>
                 </form>
             </div>
-
+            <div class="row">
+                <span>{{ selected_category }} <span class="product_count">{{ product_count }} items</span></span>
+            </div>
             <div class="product-cards">
                 <div class="row">
                     {% for product in products %}
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <div class="card">
                             <img src="{{ product.image_path }}" class="card-img-top" alt="{{ product.name }} Image">
                             <div class="card-body">
                                 <h5 class="card-title">{{ product.name }}</h5>
                                 <p class="card-text">{{ product.category }}</p>
                                 <p class="card-text">₹ {{ product.price }}</p>
-                                {% if session.logged_in %}
+                                <!-- Additional product details -->
+                            </div>
+                            {% if session.logged_in %}
                                 <div class="d-flex justify-content-center"> <!-- Center-align the button -->
                                     <button class="btn btn-primary add-to-cart-btn"
                                         data-product-id="{{ product._id }}">Add
@@ -78,8 +113,6 @@
                                         Cart</button>
                                 </div>
                                 {% endif %}
-                                <!-- Additional product details -->
-                            </div>
                         </div>
                     </div>
                     {% endfor %}

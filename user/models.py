@@ -4,7 +4,7 @@ from app import db
 import uuid
 
 class User:
-
+    
     def start_session(self, user):
         del user['password']
         session['logged_in'] = True
@@ -12,8 +12,9 @@ class User:
         return jsonify(user), 200
     
     def signup(self):
+        # Define document structure for user collection
         user = {
-            "_id": uuid.uuid4().hex,                            # Generate unique id
+            "_id": uuid.uuid4().hex,
             "name": request.form.get('name'),
             "email": request.form.get('email'),
             "password": request.form.get('password'),
@@ -38,7 +39,7 @@ class User:
     def login(self):
         user = db.users.find_one({"email": request.form.get('email')})
         if user:
-            if pbkdf2_sha256.verify(request.form.get('password'), user['password']):
+            if pbkdf2_sha256.verify(request.form.get('password'), user['password']):    # Verify password input with password stored in db
                 return self.start_session(user)
             else:
                 return jsonify({"error": "Invalid password"}), 401

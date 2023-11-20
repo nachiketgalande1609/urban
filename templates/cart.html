@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8">
-            <div class="card mb-4">
+            <div class="cart-card mb-4">
                 <div class="card-body">
                     <h3 class="card-title">Your Cart</h3>
                     {% for item in cart_items %}
@@ -14,7 +14,7 @@
                             <img src="../{{ item.image_path }}" alt="Product Image" class="img-fluid rounded">
                         </div>
                         <div class="col-md-8">
-                            <div class="card-body">
+                            <div class="cart-info">
                                 <h5 class="card-title">{{ item.product_name }}</h5>
                                 <p class="card-text">Price: ₹ {{ item.price }}</p>
                                 <button onclick="removeFromCart('{{ item.product_id }}')" class="btn btn-sm btn-danger">Remove</button>
@@ -26,7 +26,7 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card">
+            <div class="cart-card">
                 <div class="card-body">
                     <h3 class="card-title">Order Summary</h3>
                     <!-- Additional order summary details -->

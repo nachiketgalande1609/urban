@@ -6,7 +6,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-4">
-                <div class="card mb-4">
+                <div class="profile-card mb-4">
                     <div class="card-body">
                         <h1 class="card-title">Profile</h1>
                         <p><strong>Name:</strong> {{ session['user']['name'] }}</p>
@@ -14,7 +14,7 @@
                         <a href="/edit-profile" class="btn btn-primary">Edit Profile</a>
                     </div>
                 </div>
-                <div class="card">
+                <div class="profile-card">
                     <div class="card-body">
                         <h3 class="card-title">Change Password</h3>
                         <form name="change_password" method="POST">
@@ -28,20 +28,20 @@
                                 <input type="password" class="form-control" id="newPassword" name="newPassword">
                             </div>
                             <p class="error error--hidden"></p>
-                            <button type="submit" class="btn btn-primary">Change Password</button>
+                            <button type="submit" class="btn btn-primary change-pwd-btn">Change Password</button>
                         </form>
                     </div>
                 </div>
             </div>
             <div class="col-md-8">
-                <div class="card mb-4">
+                <div class="profile-card mb-4">
                     <div class="card-body">
                         <h3 class="card-title">Order History</h3>
                         <!-- Display order history, past purchases, etc. -->
                         <!-- Include a table or list to show order details -->
                     </div>
                 </div>
-                <div class="card">
+                <div class="profile-card">
                     <div class="card-body">
                         <h3 class="card-title">Saved Addresses</h3>
                         <!-- Display saved addresses for shipping -->

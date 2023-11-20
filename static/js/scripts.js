@@ -11,7 +11,7 @@ $("form[name=signup_form]").submit(function (e) {
         data: data,
         dataType: "json",
         success: function (resp) {
-            window.location.href = "/account/"
+            window.location.href = "/"
         },
         error: function (resp) {
             $error.text(resp.responseJSON.error).removeClass("error--hidden");
@@ -34,7 +34,7 @@ $("form[name=login_form]").submit(function (e) {
         data: data,
         dataType: "json",
         success: function (resp) {
-            window.location.href = "/account/"
+            window.location.href = "/"
         },
         error: function (resp) {
             $error.text(resp.responseJSON.error).removeClass("error--hidden");
