@@ -36,10 +36,12 @@ def add_to_cart():
     if 'user_id' in request.form and 'product_id' in request.form:
         user_id = request.form['user_id']
         product_id = request.form['product_id']
+        size = request.form['size']
 
         cart_item = {
             'user_id': user_id,
-            'product_id': product_id
+            'product_id': product_id,
+            'size': size
         }
 
         db.cart.insert_one(cart_item)

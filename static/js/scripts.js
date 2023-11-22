@@ -72,6 +72,7 @@ $("form[name=add_product_form]").submit(function (e) {
 $(document).ready(function () {
     $('.add-to-cart-btn').on('click', function () {
         var product_id = $(this).data('product-id');
+        var size = $('#sizeSelect').val();
         $.ajax({
             url: '/user/get_user_id',
             method: 'GET',
@@ -85,7 +86,8 @@ $(document).ready(function () {
                     method: 'POST',
                     data: {
                         product_id: product_id,
-                        user_id: user_id
+                        user_id: user_id,
+                        size: size
                     },
                     success: function (response) {
                         $('.modal-background').addClass('show');

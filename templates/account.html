@@ -36,8 +36,9 @@
                 <div class="card-body">
                     <h3 class="card-title">Saved Addresses</h3>
                     <hr>
-                    <!-- Display saved addresses for shipping -->
-                    <!-- Include a list or form for managing addresses -->
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">{{ user.address }}</li>
+                      </ul>
                 </div>
             </div>
         </div>
@@ -62,13 +63,15 @@
                                 <div class="col-md-12 mb-3">
                                     <div class="row no-gutters">
                                         <div class="col-md-2">
-                                            <img src="../{{ product.image_path }}" class="card-img"
-                                                alt="{{ product.product_name }}">
+                                            <a href="{{ url_for('product.product_detail', product_id=product.product_id) }}">
+                                                <img src="../{{ product.image_path }}" class="card-img" alt="{{ product.product_name }}">
+                                            </a>
                                         </div>
                                         <div class="col-md-10">
                                             <div class="card-body">
                                                 <h5 class="card-title">{{ product.product_name }}</h5>
                                                 <p class="card-text">₹ {{ product.price }}</p>
+                                                <p class="card-text">Size: {{ product.size }}</p>
                                             </div>
                                         </div>
                                     </div>

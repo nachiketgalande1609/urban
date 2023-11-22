@@ -79,6 +79,7 @@ def signup():
 @login_required
 def account():
     user_id = session.get('user').get('_id')
+    user = db.user.find_one({'_id': user_id})
     order_history = db.orders.find({'user_id': user_id})
     order_history = order_history.sort("created_at", -1)
 
@@ -86,7 +87,7 @@ def account():
     for order in order_history:
         order['created_at'] = order['created_at'].strftime("%a, %d %b %Y")  # Convert datetime to custom format
         formatted_order_history.append(order)
-    return render_template('account.html', order_history=formatted_order_history)
+    return render_template('account.html', order_history=formatted_order_history, user=user)
 
 # Add Product route
 @app.route('/addproduct/')
@@ -130,7 +131,7 @@ def address():
     return render_template('address.html', address=address, cart_items=cart_with_product_details, total_price=total_price)
 
 # Insert order details into orders collection
-def insert_order(user_id, order_number, product_ids, total_price, total_amount, cgst, sgst, delivery_date, address):
+def insert_order(user_id, order_number, product_ids, total_price, total_amount, cgst, sgst, delivery_date, address, cart_with_product_details):
     from datetime import datetime
     order = {
         "_id": uuid.uuid4().hex,
@@ -146,9 +147,10 @@ def insert_order(user_id, order_number, product_ids, total_price, total_amount, 
         "created_at": datetime.now()
     }
     db.cart.delete_many({"user_id": user_id})
-
+    
     # Fetch product details including image_path from the products collection
-    for product_id in product_ids:
+    for product_info in cart_with_product_details:
+        product_id = product_info.get('product_id')
         product_details = db.products.find_one({'_id': product_id})
         if product_details:
             product = {
@@ -156,14 +158,13 @@ def insert_order(user_id, order_number, product_ids, total_price, total_amount, 
                 "image_path": product_details.get('image_path'),
                 "product_name": product_details.get('name'),
                 "price": product_details.get('price'),
+                "size": product_info.get('size')  # Access 'size' from the current product_info dictionary
             }
             order["products"].append(product)
 
     # Insert order into the database
     db.orders.insert_one(order)
     return None
-
-
 
 # Download invoice route
 @app.route('/invoice')
@@ -183,7 +184,7 @@ def invoice():
     total_amount = total_price + cgst + sgst
 
     product_ids = [item.get('product_id', ) for item in cart_with_product_details]
-    insert_order(user_id, order_number, product_ids, total_price, total_amount, cgst, sgst, delivery_date_str, address)
+    insert_order(user_id, order_number, product_ids, total_price, total_amount, cgst, sgst, delivery_date_str, address, cart_with_product_details)
     
     rendered_html = render_template('invoice.html', cart_items=cart_with_product_details, total_price=total_price,
                                     total_amount=total_amount, cgst=cgst, sgst=sgst, address=address,

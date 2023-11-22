@@ -38,6 +38,7 @@ class User:
     
     def login(self):
         user = db.users.find_one({"email": request.form.get('email')})
+        print('User "', user["name"], '" has logged in!')
         if user:
             if pbkdf2_sha256.verify(request.form.get('password'), user['password']):    # Verify password input with password stored in db
                 return self.start_session(user)

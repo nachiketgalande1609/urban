@@ -20,24 +20,24 @@
     <div class="container-fluid">
         <nav class="navbar navbar-expand-lg navbar-light">
             <a class="navbar-brand" href="{{ url_for('home') }}">
-                <img src="../static/images/logo.png" height="50" alt="">
+                <img src="../static/images/logo1.png" height="30" alt="">
             </a>
+
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ms-auto">
 
-                    <!-- Inside the navbar, add the following code -->
-                    <form class="d-flex ms-auto" name="search-form" style="height: 38px;">
-                        <input class="form-control search-form-input me-2" name="search_query" type="search" placeholder="Search"
-                            aria-label="Search" style="height: 38px; padding: 6px;">
-                        <button class="btn btn-primary" type="submit" style="height: 38px; padding: 8px;">
-                            <i class="bi bi-search"></i>
-                        </button>
-                    </form>
+                <form class="d-flex ms-auto" name="search-form" style="height: 38px;">
+                    <input class="form-control search-form-input me-2" name="search_query" type="search"
+                        placeholder="Search for products" aria-label="Search">
+                    <button class="btn btn-primary search-btn" type="submit" style="height: 38px; padding: 8px;">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </form>
+                <ul class="navbar-nav ms-auto">
 
                     <li class="nav-item dropdown women-dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -97,21 +97,19 @@
 
                     {% if session.logged_in %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('cart') }}"><img src="../static/images/cart.png"
-                                height="20" alt=""></a>
+                        <a class="nav-link" href="{{ url_for('cart') }}"><i class="bi bi-bag-check-fill"></i></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('addproduct') }}"><img src="../static/images/add.png"
-                                height="20" alt=""></a>
+                        <a class="nav-link" href="{{ url_for('addproduct') }}"><i
+                                class="bi bi-plus-square-fill"></i></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('account') }}"><img src="../static/images/proflie.png"
-                                height="20" alt=""></a>
+                        <a class="nav-link" href="{{ url_for('account') }}"><i class="bi bi-person-fill"></i></a>
                     </li>
                     <li class="nav-item dropdown hamburg-dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img src="../static/images/menu.png" height="20" alt="">
+                            <i class="bi bi-list"></i>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="left: auto; right: 0;">
                             <a class="nav-username">Hello {{ session['user']['name'] }}</a>
@@ -125,7 +123,7 @@
                         <li class="nav-item dropdown hamburg-dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="../static/images/menu.png" height="20" alt="">
+                                <i class="bi bi-list"></i>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="left: auto; right: 0;">
                                 <a class="nav-link" href="{{ url_for('login') }}">Login</a>
@@ -138,8 +136,37 @@
             </div>
         </nav>
     </div>
+
     {% block content %}
     {% endblock %}
+
+    <!-- Footer -->
+    <footer class="bg-dark py-5 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h4>Contact Us</h4>
+                    <p class="mb-1">Email: nachiket4251@gmail.com</p>
+                    <p class="mb-1 mt-1">Phone: +1 123-456-7890</p>
+                </div>
+                <div class="col-md-4">
+                    <h4>Follow Us</h4>
+                    <p class="mb-1"><i class="bi bi-facebook me-1"></i> <a href="#" class="text-decoration-none text-white">Facebook</a></p>
+                    <p class="mb-1 mt-1"><i class="bi bi-twitter me-1"></i> <a href="#" class="text-decoration-none text-white">Twitter</a></p>
+                    <p class="mb-1 mt-1"><i class="bi bi-instagram me-1"></i> <a href="#" class="text-decoration-none text-white">Instagram</a></p>
+                </div>
+                <div class="col-md-4">
+                    <h4 class="mb-4">Quick Links</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="{{ url_for('home') }}" class="text-decoration-none text-white">Home</a></li>
+                        <li><a href="{{ url_for('cart') }}" class="text-decoration-none text-white">Cart</a></li>
+                        <li><a href="{{ url_for('account') }}" class="text-decoration-none text-white">Account</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
