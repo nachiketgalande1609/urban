@@ -4,35 +4,49 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8">
+            {% if cart_items %}
             <div class="cart-card mb-4">
                 <div class="card-body">
                     <h3 class="card-title">Your Cart</h3>
                     {% for item in cart_items %}
                     <hr>
                     <div class="row g-0">
-                        <div class="col-md-4">
+                        <div class="col-md-2">
                             <img src="../{{ item.image_path }}" alt="Product Image" class="img-fluid rounded">
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-10">
                             <div class="cart-info">
+                                <a href="">
+                                    <div class="delete-cart-btn d-flex justify-content-end"><img
+                                            src="../static/images/trash.png"
+                                            onclick="removeFromCart('{{ item.product_id }}')" height="15px" alt="">
+                                    </div>
+                                </a>
                                 <h5 class="card-title">{{ item.product_name }}</h5>
                                 <p class="card-text">Price: ₹ {{ item.price }}</p>
-                                <button onclick="removeFromCart('{{ item.product_id }}')" class="btn btn-sm btn-danger">Remove</button>
                             </div>
                         </div>
                     </div>
                     {% endfor %}
                 </div>
             </div>
+            {% else %}
+            <div class="text-center empty-cart">
+                <h1>Your cart is empty</h1>
+                <a href="{{ url_for('home') }}" class="btn  add-items-cart-btn">Add items to your cart</a>
+            </div>
+            {% endif %}
         </div>
         <div class="col-md-4">
             <div class="cart-card">
                 <div class="card-body">
                     <h3 class="card-title">Order Summary</h3>
+                    <hr>
                     <!-- Additional order summary details -->
                     <p>Total Items: {{ cart_items|length }}</p>
+                    <hr>
                     <p>Total Price: ₹ {{ total_price }}</p>
-                    <a href="/checkout" class="btn btn-primary">Proceed to Payment</a>
+                    <a href="{{ url_for('address') }}" class="btn btn-primary">Proceed to Payment</a>
                 </div>
             </div>
         </div>

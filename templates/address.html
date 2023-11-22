@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="cart-card mb-4">
+                <div class="card-body">
+                    <h3 class="card-title address-card-title">Address</h3>
+                    <hr>
+                    {% if address %}
+                    <form method="POST">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="selected_address"
+                                value="{{ address.id }}">
+                            <label class="form-check-label" for="address{{ address.id }}">
+                                {{ address.address }}
+                            </label>
+                        </div>
+                    </form>
+                    {% else %}
+                    <p>No saved addresses found.</p>
+                    <button class="btn btn-primary" onclick="showAddAddressPopup()">Add Address</button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="cart-card">
+                <div class="card-body">
+                    <h3 class="card-title">Order Summary</h3>
+                    <hr>
+                    <!-- Additional order summary details -->
+                    <p>Total Items: {{ cart_items|length }}</p>
+                    <hr>
+                    <p>Total Price: ₹ {{ total_price }}</p>
+                    <a href="{{ url_for('invoice') }}" id="payButton" class="btn btn-primary">Pay</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-background">
+    <div class="modal-content alert alert-success" role="alert">
+        Your payment was successful! Your invoice has been automatically downloaded. Thank you for your purchase!
+    </div>
+</div>
+{% endblock %}

@@ -152,8 +152,6 @@ $("form[name=change_password]").submit(function (e) {
 
     var currentPassword = $form.find('input[name=currentPassword]').val();
     var newPassword = $form.find('input[name=newPassword]').val();
-
-    // Create an object with the form data
     var formData = {
         currentPassword: currentPassword,
         newPassword: newPassword
@@ -168,14 +166,51 @@ $("form[name=change_password]").submit(function (e) {
             console.log('Password changed successfully');
             $error.addClass("error--hidden");
             $('.modal-background').addClass('show');
-                        $('.modal-content').fadeIn(); // Show the alert content
-                        setTimeout(function () {
-                            $('.modal-background').removeClass('show');
-                            $('.modal-content').fadeOut('slow'); // Hide the alert content
-                        }, 1000);
+            $('.modal-content').fadeIn(); // Show the alert content
+            setTimeout(function () {
+                $('.modal-background').removeClass('show');
+                $('.modal-content').fadeOut('slow'); // Hide the alert content
+            }, 1000);
         },
         error: function (resp) {
             $error.text(resp.responseJSON.error).removeClass("error--hidden");
         }
     });
+});
+
+// Navbar dropdown open on hover
+$(document).ready(function () {
+    function handleDropdownHover(dropdownClass) {
+        $(dropdownClass).hover(function () {
+            $(this).find('.dropdown-menu').stop(true, true).fadeIn(0);
+        }, function () {
+            $(this).find('.dropdown-menu').stop(true, true).fadeOut(0);
+        });
+        $(dropdownClass + ' .dropdown-menu').click(function (e) {
+            e.stopPropagation();
+        });
+    }
+
+    handleDropdownHover('.women-dropdown');
+    handleDropdownHover('.men-dropdown');
+    handleDropdownHover('.hamburg-dropdown');
+});
+
+// Show success notification on clicking Pay button
+$(document).ready(function () {
+    $('#payButton').on('click', function () {
+
+        $('.modal-background').addClass('show');
+        $('.modal-content').fadeIn(); // Show the alert content
+        setTimeout(function () {
+            $('.modal-background').removeClass('show');
+            $('.modal-content').fadeOut('slow'); // Hide the alert content
+        }, 5500);
+    });
+});
+
+$("form[name=search-form]").submit(function (e) {
+    e.preventDefault(); // Prevent the default form submission
+    var searchQuery = $(this).find('input[name=search_query]').val(); // Get the search query from the form input
+    window.location.href = `/home?search=${searchQuery}`;
 });

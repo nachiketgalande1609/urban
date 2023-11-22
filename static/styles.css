@@ -64,15 +64,6 @@ p {
   display: flex;
 }
 
-.card {
-  margin: 0 30px 60px;
-  padding: 0 0 0 0;
-  width: 460px;
-  box-shadow: 0 8px 26px -4px rgba(0,0,0,0.15);
-  border-radius: 5px;
-  background: var(--white);
-}
-
 @media only screen and (max-width: 520px) {
   .card-wrapper {
     padding: 30px 0 0;
@@ -364,4 +355,23 @@ input[type=submit] {
 
 .product_count {
   color: #8d8d8d;
+}
+
+.add-items-cart-btn {
+  background-color: white;
+  color: #ff0000;
+  border: #ff0000 solid 1px;
+  width: 300px;
+}
+.add-items-cart-btn:hover {
+  color: #fff;
+  background-color: #ff0000;
+}
+
+.empty-cart {
+  margin: 70px 0;
+}
+
+.search-form-input {
+  margin-right: 5px !important;
 }

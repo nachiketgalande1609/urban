@@ -1,61 +1,96 @@
-
-
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="profile-card mb-4">
-                    <div class="card-body">
-                        <h1 class="card-title">Profile</h1>
-                        <p><strong>Name:</strong> {{ session['user']['name'] }}</p>
-                        <p><strong>Email:</strong> {{ session['user']['email'] }}</p>
-                        <a href="/edit-profile" class="btn btn-primary">Edit Profile</a>
-                    </div>
-                </div>
-                <div class="profile-card">
-                    <div class="card-body">
-                        <h3 class="card-title">Change Password</h3>
-                        <form name="change_password" method="POST">
-                            <!-- Include fields for changing password -->
-                            <div class="form-group">
-                                <label for="currentPassword">Current Password</label>
-                                <input type="password" class="form-control" id="currentPassword" name="currentPassword">
-                            </div>
-                            <div class="form-group">
-                                <label for="newPassword">New Password</label>
-                                <input type="password" class="form-control" id="newPassword" name="newPassword">
-                            </div>
-                            <p class="error error--hidden"></p>
-                            <button type="submit" class="btn btn-primary change-pwd-btn">Change Password</button>
-                        </form>
-                    </div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="profile-card mb-4">
+                <div class="card-body">
+                    <h1 class="card-title">Profile</h1>
+                    <hr>
+                    <p><strong>Name:</strong> {{ session['user']['name'] }}</p>
+                    <p><strong>Email:</strong> {{ session['user']['email'] }}</p>
+                    <a href="/edit-profile" class="btn btn-primary">Edit Profile</a>
                 </div>
             </div>
-            <div class="col-md-8">
-                <div class="profile-card mb-4">
-                    <div class="card-body">
-                        <h3 class="card-title">Order History</h3>
-                        <!-- Display order history, past purchases, etc. -->
-                        <!-- Include a table or list to show order details -->
-                    </div>
+            <div class="profile-card mb-4">
+                <div class="card-body">
+                    <h3 class="card-title">Change Password</h3>
+                    <hr>
+                    <form name="change_password" method="POST">
+                        <!-- Include fields for changing password -->
+                        <div class="form-group">
+                            <label for="currentPassword">Current Password</label>
+                            <input type="password" class="form-control" id="currentPassword" name="currentPassword">
+                        </div>
+                        <div class="form-group">
+                            <label for="newPassword">New Password</label>
+                            <input type="password" class="form-control" id="newPassword" name="newPassword">
+                        </div>
+                        <p class="error error--hidden"></p>
+                        <button type="submit" class="btn btn-primary change-pwd-btn">Change Password</button>
+                    </form>
                 </div>
-                <div class="profile-card">
-                    <div class="card-body">
-                        <h3 class="card-title">Saved Addresses</h3>
-                        <!-- Display saved addresses for shipping -->
-                        <!-- Include a list or form for managing addresses -->
-                    </div>
+            </div>
+            <div class="profile-card mb-4">
+                <div class="card-body">
+                    <h3 class="card-title">Saved Addresses</h3>
+                    <hr>
+                    <!-- Display saved addresses for shipping -->
+                    <!-- Include a list or form for managing addresses -->
                 </div>
-
-                <div class="modal-background">
-                    <div class="modal-content alert alert-success" role="alert">
-                        Password has been changed successfully!
-                    </div>
-                </div>
-
             </div>
         </div>
+        <div class="col-md-8">
+            <!-- Other sections of your account.html -->
+
+            <div class="mb-4">
+                <div class="card-body">
+                    <h3 class="card-title">Order History</h3>
+                    <!-- Display distinct orders as Bootstrap cards -->
+                    {% for order in order_history %}
+                    <div class="card mb-3 mt-3">
+                        <div class="card-header">
+                            <small>Order Number: {{ order.order_number }}</small>
+                        </div>
+                        <div class="card-header">
+                            <small>{{ order.created_at }}</small>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                {% for product in order.products %}
+                                <div class="col-md-12 mb-3">
+                                    <div class="row no-gutters">
+                                        <div class="col-md-2">
+                                            <img src="../{{ product.image_path }}" class="card-img"
+                                                alt="{{ product.product_name }}">
+                                        </div>
+                                        <div class="col-md-10">
+                                            <div class="card-body">
+                                                <h5 class="card-title">{{ product.product_name }}</h5>
+                                                <p class="card-text">₹ {{ product.price }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+
+            <!-- Rest of your account.html -->
+
+            <div class="modal-background">
+                <div class="modal-content alert alert-success" role="alert">
+                    Password has been changed successfully!
+                </div>
+            </div>
+
+        </div>
     </div>
+</div>
 {% endblock %}

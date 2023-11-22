@@ -1,12 +1,17 @@
-from flask import Flask, render_template, redirect, session, url_for, request
+from flask import Flask, render_template, redirect, session, url_for, request, jsonify
 from functools import wraps
 from user.routes import user_bp
 from product.routes import product_bp
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
+import uuid
 
 app = Flask(__name__)
 app.secret_key = "njSND78adhsbasb7has7hd7aHCaiu98hsvvu"
+
+# Register the user and product blueprint routes with the Flask app
+app.register_blueprint(user_bp)
+app.register_blueprint(product_bp)
 
 # MongoDB Configuration
 password = "Mazaappu@1"
@@ -24,23 +29,24 @@ def login_required(f):
             return redirect('/')
     return wrap
 
-# Register the user and product blueprint routes with the Flask app
-app.register_blueprint(user_bp)
-app.register_blueprint(product_bp)
-
 # Home route
-@app.route('/')
+@app.route('/home', methods=['GET'])
+@app.route('/', methods=['GET'])
 def home():
     from user.models import User
     user = User()
     selected_category = request.args.get('category')
     selected_gender = request.args.get('gender')
     sort_order = request.args.get('sort')
-
+    search_query = request.args.get('search')
+    
     if selected_category:
         products = db.products.find({"category": selected_category, "gender": selected_gender})
     else:
         products = db.products.find()
+
+    if search_query:
+        products = db.products.find({'name': {'$regex': f'.*{search_query}.*', '$options': 'i'}})
 
     if sort_order == 'asc':
         products = products.sort("price", 1)
@@ -48,12 +54,15 @@ def home():
         products = products.sort("price", -1)
 
     if selected_category==None:
-        selected_category=''
+        if search_query:
+            selected_category=search_query
+        else:
+            selected_category=''
 
     product_count = len(list(products))
     products.rewind()
 
-    return render_template('home.html', products=products, user=user, selected_category=selected_category, product_count=product_count)
+    return render_template('home.html', products=products, user=user, selected_category=selected_category, product_count=product_count, search_query=search_query)
 
 # Login route
 @app.route('/login/')
@@ -69,7 +78,15 @@ def signup():
 @app.route('/account/')
 @login_required
 def account():
-    return render_template('account.html')
+    user_id = session.get('user').get('_id')
+    order_history = db.orders.find({'user_id': user_id})
+    order_history = order_history.sort("created_at", -1)
+
+    formatted_order_history = []
+    for order in order_history:
+        order['created_at'] = order['created_at'].strftime("%a, %d %b %Y")  # Convert datetime to custom format
+        formatted_order_history.append(order)
+    return render_template('account.html', order_history=formatted_order_history)
 
 # Add Product route
 @app.route('/addproduct/')
@@ -77,12 +94,9 @@ def account():
 def addproduct():
     return render_template('addproduct.html')
 
-# Cart route
-@app.route('/cart/')
-@login_required
-def cart():
-    user_id = session.get('user').get('_id')  # Get the current user's ID from the session
-    user_cart_items = db.cart.find({'user_id': user_id})  # Fetch cart items for the current user
+# Get cart details for the current user
+def get_cart_items(user_id):
+    user_cart_items = db.cart.find({'user_id': user_id})
     cart_with_product_details = []
     total_price = 0
 
@@ -95,10 +109,95 @@ def cart():
             item['price'] = product_details.get('price')
             cart_with_product_details.append(item)
             total_price += product_details.get('price', 0)
+
+    return cart_with_product_details, total_price
+
+# Cart route
+@app.route('/cart/')
+@login_required
+def cart():
+    user_id = session.get('user').get('_id')
+    cart_with_product_details, total_price = get_cart_items(user_id)
     return render_template('cart.html', cart_items=cart_with_product_details, total_price=total_price)
 
+# Address route
+@app.route('/address/')
+@login_required
+def address():
+    user_id = session.get('user').get('_id')
+    address = db.users.find_one({'_id': user_id}, {'_id':0, 'address':1})
+    cart_with_product_details, total_price = get_cart_items(user_id)
+    return render_template('address.html', address=address, cart_items=cart_with_product_details, total_price=total_price)
 
-# Run the Flask application if this script is executed directly
+# Insert order details into orders collection
+def insert_order(user_id, order_number, product_ids, total_price, total_amount, cgst, sgst, delivery_date, address):
+    from datetime import datetime
+    order = {
+        "_id": uuid.uuid4().hex,
+        "order_number": order_number,
+        "user_id": user_id,
+        "total_price": total_price,
+        "total_amount": total_amount,
+        "cgst": cgst,
+        "sgst": sgst,
+        "delivery_date": delivery_date,
+        "address": address,
+        "products": [],
+        "created_at": datetime.now()
+    }
+    db.cart.delete_many({"user_id": user_id})
+
+    # Fetch product details including image_path from the products collection
+    for product_id in product_ids:
+        product_details = db.products.find_one({'_id': product_id})
+        if product_details:
+            product = {
+                "product_id": product_id,
+                "image_path": product_details.get('image_path'),
+                "product_name": product_details.get('name'),
+                "price": product_details.get('price'),
+            }
+            order["products"].append(product)
+
+    # Insert order into the database
+    db.orders.insert_one(order)
+    return None
+
+
+
+# Download invoice route
+@app.route('/invoice')
+def invoice():
+    import pdfkit
+    from flask import make_response
+    from datetime import datetime, timedelta
+    user_id = session.get('user').get('_id')
+    address = db.users.find_one({'_id': user_id}, {'_id': 0, 'address': 1})
+    cart_with_product_details, total_price = get_cart_items(user_id)
+    order_number = str(uuid.uuid4().int)[:8]
+    delivery_date = datetime.now() + timedelta(days=7)
+    delivery_date_str = delivery_date.strftime('%Y-%m-%d')
+    
+    cgst = total_price * 2.5 / 100
+    sgst = total_price * 2.5 / 100
+    total_amount = total_price + cgst + sgst
+
+    product_ids = [item.get('product_id', ) for item in cart_with_product_details]
+    insert_order(user_id, order_number, product_ids, total_price, total_amount, cgst, sgst, delivery_date_str, address)
+    
+    rendered_html = render_template('invoice.html', cart_items=cart_with_product_details, total_price=total_price,
+                                    total_amount=total_amount, cgst=cgst, sgst=sgst, address=address,
+                                    order_number=order_number, delivery_date=delivery_date_str)
+
+    config = pdfkit.configuration(wkhtmltopdf='./wkhtmltopdf/bin/wkhtmltopdf.exe')
+    pdf = pdfkit.from_string(rendered_html, False, configuration=config)
+
+    response = make_response(pdf)
+    response.headers['Content-Type'] = 'application/pdf'
+    response.headers['Content-Disposition'] = 'attachment; filename=invoice.pdf'
+
+    return response
+
 # if __name__ == '__main__':
 #     app.run(host='0.0.0.0', port=5000)
 

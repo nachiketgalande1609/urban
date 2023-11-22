@@ -11,6 +11,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="/static/styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -27,12 +29,22 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item dropdown" id="womenDropdown">
+
+                    <!-- Inside the navbar, add the following code -->
+                    <form class="d-flex ms-auto" name="search-form" style="height: 38px;">
+                        <input class="form-control search-form-input me-2" name="search_query" type="search" placeholder="Search"
+                            aria-label="Search" style="height: 38px; padding: 6px;">
+                        <button class="btn btn-primary" type="submit" style="height: 38px; padding: 8px;">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </form>
+
+                    <li class="nav-item dropdown women-dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Women
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <div class="dropdown-menu" style="left: auto; right: 0;" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item"
                                 href="{{ url_for('home', category='Kurtas & Suits', gender='Women') }}">Kurtas &
                                 Suits</a>
@@ -53,12 +65,13 @@
                                 href="{{ url_for('home', category='Gadgets', gender='Women') }}">Gadgets</a>
                         </div>
                     </li>
-                    <li class="nav-item dropdown" id="menDropdown">
+
+                    <li class="nav-item dropdown men-dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Men
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <div class="dropdown-menu" style="left: auto; right: 0;" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item"
                                 href="{{ url_for('home', category='Topwear', gender='Men') }}">Topwear</a>
                             <a class="dropdown-item"
@@ -81,23 +94,24 @@
                                 Accessories</a>
                         </div>
                     </li>
+
                     {% if session.logged_in %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('cart') }}"><img src="../static/images/cart.png"
-                                height="25" alt=""></a>
+                                height="20" alt=""></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('addproduct') }}"><img src="../static/images/add.png"
-                                height="25" alt=""></a>
+                                height="20" alt=""></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('account') }}"><img src="../static/images/proflie.png"
-                                height="25" alt=""></a>
+                                height="20" alt=""></a>
                     </li>
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown hamburg-dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img src="../static/images/menu.png" height="30" alt="">
+                            <img src="../static/images/menu.png" height="20" alt="">
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="left: auto; right: 0;">
                             <a class="nav-username">Hello {{ session['user']['name'] }}</a>
@@ -105,25 +119,29 @@
                             <a class="nav-link" href="/user/signout">Sign Out</a>
                         </div>
                     </li>
+
                     {% else %}
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown hamburg-dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="../static/images/menu.png" height="30" alt="">
+                                <img src="../static/images/menu.png" height="20" alt="">
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="left: auto; right: 0;">
                                 <a class="nav-link" href="{{ url_for('login') }}">Login</a>
                                 <a class="nav-link" href="{{ url_for('signup') }}">Signup</a>
                             </div>
                         </li>
-                        {% endif %}
                     </ul>
+                    {% endif %}
+                </ul>
             </div>
         </nav>
     </div>
     {% block content %}
     {% endblock %}
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- Bootstrap js -->
     <script src="/static/js/jquery.js"></script>

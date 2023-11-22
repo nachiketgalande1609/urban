@@ -7,3 +7,9 @@ def addproduct():
     from product.models import Product
     product = Product()
     return product.addproduct()
+
+@product_bp.route('/<product_id>')
+def product_detail(product_id):
+    from app import db
+    product = db.products.find_one({"_id": product_id})
+    return render_template('product_detail.html', product=product)

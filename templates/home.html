@@ -93,12 +93,19 @@
             <div class="row">
                 <span>{{ selected_category }} <span class="product_count">{{ product_count }} items</span></span>
             </div>
+            {% if search_query %}
+            <div class="row">
+                <span class="product_count">Showing results for: {{ search_query }}</span>
+            </div>
+            {% endif %}
             <div class="product-cards">
                 <div class="row">
                     {% for product in products %}
                     <div class="col-md-2">
                         <div class="card">
-                            <img src="{{ product.image_path }}" class="card-img-top" alt="{{ product.name }} Image">
+                            <a href="{{ url_for('product.product_detail', product_id=product._id) }}">
+                                <img src="{{ product.image_path }}" class="card-img-top" alt="{{ product.name }} Image">
+                            </a>
                             <div class="card-body">
                                 <h5 class="card-title">{{ product.name }}</h5>
                                 <p class="card-text">{{ product.category }}</p>
