@@ -207,7 +207,7 @@ $(document).ready(function () {
         setTimeout(function () {
             $('.modal-background').removeClass('show');
             $('.modal-content').fadeOut('slow'); // Hide the alert content
-        }, 5500);
+        }, 2000);
     });
 });
 

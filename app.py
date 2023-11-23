@@ -29,7 +29,15 @@ def login_required(f):
             return redirect('/')
     return wrap
 
-
+# Check if user is an admin
+def admin_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if session.get('logged_in') and session.get('is_admin'):
+            return f(*args, **kwargs)
+        else:
+            return redirect(url_for('home'))
+    return decorated_function
 
 # Home route
 @app.route('/home', methods=['GET'])
@@ -86,7 +94,7 @@ def signup():
 @login_required
 def account():
     user_id = session.get('user').get('_id')
-    user = db.user.find_one({'_id': user_id})
+    user = db.users.find_one({'_id': user_id})
     order_history = db.orders.find({'user_id': user_id})
     order_history = order_history.sort("created_at", -1)
 
@@ -94,11 +102,14 @@ def account():
     for order in order_history:
         order['created_at'] = order['created_at'].strftime("%a, %d %b %Y")  # Convert datetime to custom format
         formatted_order_history.append(order)
+    
+    print(user_id)
     return render_template('account.html', order_history=formatted_order_history, user=user)
 
 # Add Product route
 @app.route('/addproduct/')
 @login_required
+@admin_required # Give access to this page only if the user is an admin
 def addproduct():
     return render_template('addproduct.html')
 
@@ -165,6 +176,7 @@ def insert_order(user_id, order_number, product_ids, total_price, total_amount, 
                 "image_path": product_details.get('image_path'),
                 "product_name": product_details.get('name'),
                 "price": product_details.get('price'),
+                "category": product_details.get('category'),
                 "size": product_info.get('size')  # Access 'size' from the current product_info dictionary
             }
             order["products"].append(product)
@@ -206,6 +218,35 @@ def invoice():
 
     return response
 
+# Route for dashboard page
+@app.route('/dashboard/')
+@login_required
+@admin_required # Give access to this page only if the user is an admin
+def dashboard():
+    users = db.users.find()
+    products = db.products.find()
+    orders = db.orders.find()
+    user_count = len(list(users))
+    product_count = len(list(products))
+    order_count = len(list(orders))
+
+    # Revenue by category chart /////////////////////////////////////////////////////////////////
+    revenue_by_category = db.orders.aggregate([
+        {"$unwind": "$products"},
+        {"$group": {"_id": "$products.category", "totalRevenue": {"$sum": "$products.price"}}}
+    ])
+    categories = []
+    revenues = []
+    for item in revenue_by_category:
+        categories.append(item['_id'])
+        revenues.append(item['totalRevenue'])
+
+    if not categories or not revenues:
+        return "No data available for the pie chart"
+    # Revenue by category chart /////////////////////////////////////////////////////////////////
+
+    return render_template('dashboard.html', user_count=user_count, product_count=product_count,
+                           order_count=order_count, categories=categories, revenues=revenues)
 # if __name__ == '__main__':
 #     app.run(host='0.0.0.0', port=5000)
 

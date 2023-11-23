@@ -27,6 +27,9 @@ class User:
         if db.users.find_one({"email": user['email']}):
             return jsonify({"error": "User already exists"}), 400
 
+        if db.users.count_documents({}) == 0:
+            user['is_admin'] = True
+
         if db.users.insert_one(user):
             return self.start_session(user)
 
@@ -38,9 +41,11 @@ class User:
     
     def login(self):
         user = db.users.find_one({"email": request.form.get('email')})
-        print('User "', user["name"], '" has logged in!')
         if user:
             if pbkdf2_sha256.verify(request.form.get('password'), user['password']):    # Verify password input with password stored in db
+                session['logged_in'] = True
+                if user.get('is_admin'):
+                    session['is_admin'] = True
                 return self.start_session(user)
             else:
                 return jsonify({"error": "Invalid password"}), 401

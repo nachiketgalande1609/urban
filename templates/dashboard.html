@@ -2,23 +2,89 @@
 
 {% block content %}
 
-<h1>Dashboard Page</h1>
-
-    <div class="card-wrapper">
-        <div class="card">
-            <h1 class="canter">Dashboard</h1>
-            <p class="center">You are currently logged in</p>
-            <div class="center">
-                <a href="/user/signout" class="btn btn--secondary">Sign Out</a>
+<div class="container mt-5">
+    <h1 class="mb-4">Admin Dashboard</h1>
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Total Users</h5>
+                    <p class="card-text">{{ user_count }}</p>
+                </div>
             </div>
         </div>
-
-        <div class="card">
-            <h2 class="center">Your info</h2>
-            <p><strong>ID: </strong>{{ session['user']['_id'] }}</p>
-            <p><strong>Name: </strong>{{ session['user']['name'] }}</p>
-            <p><strong>Email: </strong>{{ session['user']['email'] }}</p>
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Total Products</h5>
+                    <p class="card-text">{{ product_count }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Total Orders</h5>
+                    <p class="card-text">{{ order_count }}</p>
+                </div>
+            </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="chart-container text-center">
+                        <h5 class="mb-3">Revenue by Category</h5>
+                        <canvas id="revenueChart"></canvas>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    function generatePieChart(categories, revenues) {
+        var ctx = document.getElementById('revenueChart').getContext('2d');
+        if (categories.length > 0 && revenues.length > 0) {
+            var backgroundColors = generateColors(revenues.length);
+            var borderColor = backgroundColors.map(color => color.replace('0.5', '1'));
+            var revenueChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: categories,
+                    datasets: [{
+                        label: 'Revenue by Category',
+                        data: revenues,
+                        backgroundColor: backgroundColors,
+                        borderColor: borderColor,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true
+                }
+            });
+        } else {
+            console.error('No data available for the pie chart');
+        }
+    }
+
+    function generateColors(count) {
+        var colors = [];
+        for (var i = 0; i < count; i++) {
+            var color = 'rgba(' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256) + ',0.5)';
+            colors.push(color);
+        }
+        return colors;
+    }
+
+    generatePieChart(JSON.parse('{{ categories | tojson | safe }}'), JSON.parse('{{ revenues | tojson | safe }}'));
+</script>
+
 
 {% endblock %}

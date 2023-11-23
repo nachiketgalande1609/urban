@@ -7,7 +7,6 @@
             <div class="profile-card mb-4">
                 <div class="card-body">
                     <h1 class="card-title">Profile</h1>
-                    <hr>
                     <p><strong>Name:</strong> {{ session['user']['name'] }}</p>
                     <p><strong>Email:</strong> {{ session['user']['email'] }}</p>
                     <a href="/edit-profile" class="btn btn-primary">Edit Profile</a>
@@ -15,8 +14,7 @@
             </div>
             <div class="profile-card mb-4">
                 <div class="card-body">
-                    <h3 class="card-title">Change Password</h3>
-                    <hr>
+                    <h3 class="card-title mb-4">Change Password</h3>
                     <form name="change_password" method="POST">
                         <!-- Include fields for changing password -->
                         <div class="form-group">
@@ -35,10 +33,7 @@
             <div class="profile-card mb-4">
                 <div class="card-body">
                     <h3 class="card-title">Saved Addresses</h3>
-                    <hr>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">{{ user.address }}</li>
-                      </ul>
+                    <p>{{ user.address }}</p>
                 </div>
             </div>
         </div>

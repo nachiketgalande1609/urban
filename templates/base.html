@@ -99,10 +99,14 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('cart') }}"><i class="bi bi-bag-check-fill"></i></a>
                     </li>
+                    {% if session.logged_in and session.is_admin %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('addproduct') }}"><i
-                                class="bi bi-plus-square-fill"></i></a>
+                        <a class="nav-link" href="{{ url_for('addproduct') }}"><i class="bi bi-plus-square-fill"></i></a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('dashboard') }}"><i class="bi bi-graph-up-arrow"></i></a>
+                    </li>
+                    {% endif %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('account') }}"><i class="bi bi-person-fill"></i></a>
                     </li>
