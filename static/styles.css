@@ -398,3 +398,19 @@ input[type=submit] {
 footer {
   color: white;
 }
+
+.page-link {
+  color: black;
+  box-shadow: none; /* Remove the box shadow by default */
+}
+
+.page-item.active .page-link {
+  background-color: black;
+  border-color: black;
+}
+.page-link:focus {
+  box-shadow: none;
+}
+.page-link:hover {
+  color: #000;
+}

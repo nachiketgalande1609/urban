@@ -29,40 +29,47 @@ def login_required(f):
             return redirect('/')
     return wrap
 
+
+
 # Home route
 @app.route('/home', methods=['GET'])
 @app.route('/', methods=['GET'])
 def home():
     from user.models import User
+    from flask_paginate import Pagination, get_page_args
     user = User()
     selected_category = request.args.get('category')
     selected_gender = request.args.get('gender')
     sort_order = request.args.get('sort')
     search_query = request.args.get('search')
-    
-    if selected_category:
-        products = db.products.find({"category": selected_category, "gender": selected_gender})
-    else:
-        products = db.products.find()
 
+    filters = {}
+
+    if selected_category:
+        filters['category'] = selected_category
+    if selected_gender:
+        filters['gender'] = selected_gender
     if search_query:
-        products = db.products.find({'name': {'$regex': f'.*{search_query}.*', '$options': 'i'}})
+        filters['name'] = {'$regex': f'.*{search_query}.*', '$options': 'i'}
+
+    products = db.products.find(filters)
 
     if sort_order == 'asc':
         products = products.sort("price", 1)
     elif sort_order == 'desc':
         products = products.sort("price", -1)
 
-    if selected_category==None:
-        if search_query:
-            selected_category=search_query
-        else:
-            selected_category=''
+    product_count = db.products.count_documents(filters)  # Count documents after filters
 
-    product_count = len(list(products))
-    products.rewind()
+    # Pagination setup
+    page, per_page, offset = get_page_args(page_parameter='page', per_page_parameter='per_page')
+    products = products.skip(offset).limit(per_page)
 
-    return render_template('home.html', products=products, user=user, selected_category=selected_category, product_count=product_count, search_query=search_query)
+    pagination = Pagination(page=page, total=product_count, per_page=per_page, css_framework='bootstrap')
+
+    return render_template('home.html', products=products, user=user, selected_category=selected_category,
+                           product_count=product_count, search_query=search_query, pagination=pagination)
+
 
 # Login route
 @app.route('/login/')
