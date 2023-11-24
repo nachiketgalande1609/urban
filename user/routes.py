@@ -55,7 +55,7 @@ def add_to_cart():
 def remove_from_cart(item_id):
     from app import db
     if db.cart.delete_one({"product_id": item_id}):
-        return jsonify({"message": "Product added to cart successfully"}), 200
+        return jsonify({"message": "Product removed from cart successfully"}), 200
     else:
         return jsonify({"error": "Missing user ID or product ID"}), 400
     

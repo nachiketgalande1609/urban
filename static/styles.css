@@ -397,6 +397,7 @@ input[type=submit] {
 
 footer {
   color: white;
+  margin-top: auto;
 }
 
 .page-link {
@@ -413,4 +414,49 @@ footer {
 }
 .page-link:hover {
   color: #000;
+}
+
+.delete-wishlist-btn {
+  position: absolute;
+  right: 0;
+  padding: 10px;
+}
+
+.bi-x-lg {
+  color: white; 
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+.header-and-body {
+  min-height: 100vh;
+}
+
+/* Works on Chrome, Safari, and newer versions of Edge */
+
+/* width */
+::-webkit-scrollbar {
+  width: 8px; 
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: none;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #000000;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #626262;
+}
+
+.add-to-wishlist-btn {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  z-index: 1; /* Ensure the button is above the card content */
 }

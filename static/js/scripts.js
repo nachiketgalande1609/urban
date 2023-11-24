@@ -110,11 +110,67 @@ $(document).ready(function () {
     });
 });
 
+// Add to cart
+$(document).ready(function () {
+    $('.add-to-wishlist-btn').on('click', function () {
+        var product_id = $(this).data('product-id');
+        var size = $('#sizeSelect').val();
+        $.ajax({
+            url: '/user/get_user_id',
+            method: 'GET',
+            success: function (response) {
+                var user_id = response.user_id;
+                console.log(product_id);
+                console.log(user_id);
+
+                $.ajax({
+                    url: '../add_to_wishlist',
+                    method: 'POST',
+                    data: {
+                        product_id: product_id,
+                        user_id: user_id,
+                    },
+                    success: function (response) {
+                        $('.modal-background').addClass('show');
+                        $('.modal-content').fadeIn(); // Show the alert content
+                        setTimeout(function () {
+                            $('.modal-background').removeClass('show');
+                            $('.modal-content').fadeOut('slow'); // Hide the alert content
+                        }, 1000);
+                        console.log('Successfully inserted item to wishlist');
+                    },
+                    error: function (error) {
+                        console.log('Error in product insertion');
+                    }
+                });
+            },
+            error: function (error) {
+                // Handle error response here
+            }
+        });
+    });
+});
+
 // remove item from cart
 function removeFromCart(itemId) {
     console.log(itemId);
     $.ajax({
         url: '../user/remove_from_cart/' + itemId,
+        method: 'POST',
+        success: function (response) {
+            console.log('Success');
+            location.reload(); // Reload the page after successful removal
+        },
+        error: function (error) {
+            console.log('Error');
+        }
+    });
+}
+
+function removeFromWishlist(itemId) {
+    console.log(itemId);
+    $.ajax({
+        url: '../remove_from_wishlist/' + itemId,
         method: 'POST',
         success: function (response) {
             console.log('Success');

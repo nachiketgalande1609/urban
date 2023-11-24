@@ -5,19 +5,25 @@ from product.routes import product_bp
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 import uuid
+import os
 
 app = Flask(__name__)
-app.secret_key = "njSND78adhsbasb7has7hd7aHCaiu98hsvvu"
 
 # Register the user and product blueprint routes with the Flask app
 app.register_blueprint(user_bp)
 app.register_blueprint(product_bp)
 
+from dotenv import load_dotenv
+load_dotenv()
+
+app.secret_key = os.getenv('APP_SECRET_KEY')
+password = os.getenv('DB_PASSWORD')
+uri = os.getenv('DB_URI')
+
 # MongoDB Configuration
-password = "Mazaappu@1"
-uri = "mongodb://localhost:27017/"
 client = MongoClient(uri, server_api=ServerApi('1'))
 db = client.urban
+
 
 # Check if user is logged in
 def login_required(f):
@@ -61,7 +67,6 @@ def home():
         filters['name'] = {'$regex': f'.*{search_query}.*', '$options': 'i'}
 
     products = db.products.find(filters)
-
     if sort_order == 'asc':
         products = products.sort("price", 1)
     elif sort_order == 'desc':
@@ -138,6 +143,58 @@ def cart():
     user_id = session.get('user').get('_id')
     cart_with_product_details, total_price = get_cart_items(user_id)
     return render_template('cart.html', cart_items=cart_with_product_details, total_price=total_price)
+
+# Wishlist route
+@app.route('/wishlist/')
+@login_required
+def wishlist():
+    user_id = session.get('user').get('_id')
+    wishlist_with_product_details = get_wishlist_items(user_id)
+    return render_template('wishlist.html', wishlist_items=wishlist_with_product_details)
+
+# Add item to wishlist on button click
+@app.route('/add_to_wishlist', methods=['POST'])
+def add_to_cart():
+    from app import db
+    if 'user_id' in request.form and 'product_id' in request.form:
+        user_id = request.form['user_id']
+        product_id = request.form['product_id']
+        existing_item = db.wishlist.find_one({'user_id': user_id, 'product_id': product_id})
+        if existing_item:
+            return jsonify({"message": "Product already exists in wishlist"}), 400
+        else:
+            wishlist_item = {
+                'user_id': user_id,
+                'product_id': product_id,
+            }
+            db.wishlist.insert_one(wishlist_item)
+            return jsonify({"message": "Product added to wishlist successfully"}), 200
+    else:
+        return jsonify({"error": "Missing user ID or product ID"}), 400
+
+def get_wishlist_items(user_id):
+    user_wishlist_items = db.wishlist.find({'user_id': user_id})
+    wishlist_with_product_details = []
+
+    for item in user_wishlist_items:
+        product_id = item.get('product_id')
+        product_details = db.products.find_one({'_id': product_id}, {'name': 1, 'image_path': 1, 'price': 1, 'category': 1})
+        if product_details:
+            item['product_name'] = product_details.get('name')
+            item['image_path'] = product_details.get('image_path')
+            item['price'] = product_details.get('price')
+            item['category'] = product_details.get('category')
+            wishlist_with_product_details.append(item)
+    return wishlist_with_product_details
+
+# Remove item from wishlist
+@app.route('/remove_from_wishlist/<item_id>', methods=['POST'])
+def remove_from_wishlist(item_id):
+    from app import db
+    if db.wishlist.delete_one({"product_id": item_id}):
+        return jsonify({"message": "Product deleted from wishlist successfully"}), 200
+    else:
+        return jsonify({"error": "Missing user ID or product ID"}), 400
 
 # Address route
 @app.route('/address/')

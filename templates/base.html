@@ -16,134 +16,145 @@
 </head>
 
 <body>
-    <!-- Just an image -->
-    <div class="container-fluid">
-        <nav class="navbar navbar-expand-lg navbar-light">
-            <a class="navbar-brand" href="{{ url_for('home') }}">
-                <img src="../static/images/logo1.png" height="30" alt="">
-            </a>
+    <div class="header-and-body">
+        <!-- Just an image -->
+        <div class="container-fluid">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <a class="navbar-brand" href="{{ url_for('home') }}">
+                    <img src="../static/images/logo1.png" height="30" alt="">
+                </a>
 
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-                <form class="d-flex ms-auto" name="search-form" style="height: 38px;">
-                    <input class="form-control search-form-input me-2" name="search_query" type="search"
-                        placeholder="Search for products" aria-label="Search">
-                    <button class="btn btn-primary search-btn" type="submit" style="height: 38px; padding: 8px;">
-                        <i class="bi bi-search"></i>
-                    </button>
-                </form>
-                <ul class="navbar-nav ms-auto">
+                    <form class="d-flex ms-auto" name="search-form" style="height: 38px; width: 50%;">
+                        <input class="form-control search-form-input me-2" name="search_query" type="search"
+                            placeholder="Search for products" aria-label="Search">
+                        <button class="btn btn-primary search-btn" type="submit" style="height: 38px; padding: 8px;">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </form>
+                    <ul class="navbar-nav ms-auto">
 
-                    <li class="nav-item dropdown women-dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Women
-                        </a>
-                        <div class="dropdown-menu" style="left: auto; right: 0;" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item"
-                                href="{{ url_for('home', category='Kurtas & Suits', gender='Women') }}">Kurtas &
-                                Suits</a>
-                            <a class="dropdown-item"
-                                href="{{ url_for('home', category='Sarees', gender='Women') }}">Sarees</a>
-                            <a class="dropdown-item"
-                                href="{{ url_for('home', category='Jackets', gender='Women') }}">Jackets</a>
-                            <a class="dropdown-item"
-                                href="{{ url_for('home', category='Dresses', gender='Women') }}">Dresses</a>
-                            <a class="dropdown-item"
-                                href="{{ url_for('home', category='Tops', gender='Women') }}">Tops</a>
-                            <a class="dropdown-item"
-                                href="{{ url_for('home', category='Footwear', gender='Women') }}">Footwear</a>
-                            <a class="dropdown-item"
-                                href="{{ url_for('home', category='Sports & Active Wear', gender='Women') }}">Sports &
-                                Active Wear</a>
-                            <a class="dropdown-item"
-                                href="{{ url_for('home', category='Gadgets', gender='Women') }}">Gadgets</a>
-                        </div>
-                    </li>
+                        <li class="nav-item dropdown women-dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Women
+                            </a>
+                            <div class="dropdown-menu" style="left: auto; right: 0;" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item"
+                                    href="{{ url_for('home', category='Kurtas & Suits', gender='Women') }}">Kurtas &
+                                    Suits</a>
+                                <a class="dropdown-item"
+                                    href="{{ url_for('home', category='Sarees', gender='Women') }}">Sarees</a>
+                                <a class="dropdown-item"
+                                    href="{{ url_for('home', category='Jackets', gender='Women') }}">Jackets</a>
+                                <a class="dropdown-item"
+                                    href="{{ url_for('home', category='Dresses', gender='Women') }}">Dresses</a>
+                                <a class="dropdown-item"
+                                    href="{{ url_for('home', category='Tops', gender='Women') }}">Tops</a>
+                                <a class="dropdown-item"
+                                    href="{{ url_for('home', category='Footwear', gender='Women') }}">Footwear</a>
+                                <a class="dropdown-item"
+                                    href="{{ url_for('home', category='Sports & Active Wear', gender='Women') }}">Sports
+                                    &
+                                    Active Wear</a>
+                                <a class="dropdown-item"
+                                    href="{{ url_for('home', category='Gadgets', gender='Women') }}">Gadgets</a>
+                            </div>
+                        </li>
 
-                    <li class="nav-item dropdown men-dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Men
-                        </a>
-                        <div class="dropdown-menu" style="left: auto; right: 0;" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item"
-                                href="{{ url_for('home', category='Topwear', gender='Men') }}">Topwear</a>
-                            <a class="dropdown-item"
-                                href="{{ url_for('home', category='Bottomwear', gender='Men') }}">Bottomwear</a>
-                            <a class="dropdown-item"
-                                href="{{ url_for('home', category='Indian & Festive Wear', gender='Men') }}">Indian &
-                                Festive Wear</a>
-                            <a class="dropdown-item"
-                                href="{{ url_for('home', category='Innerwear & Sleepwear', gender='Men') }}">Innerwear
-                                & Sleepwear</a>
-                            <a class="dropdown-item"
-                                href="{{ url_for('home', category='Footwear', gender='Men') }}">Footwear</a>
-                            <a class="dropdown-item"
-                                href="{{ url_for('home', category='Sports & Active Wear', gender='Men') }}">Sports &
-                                Active Wear</a>
-                            <a class="dropdown-item"
-                                href="{{ url_for('home', category='Gadgets', gender='Men') }}">Gadgets</a>
-                            <a class="dropdown-item"
-                                href="{{ url_for('home', category='Fashion Accessories', gender='Men') }}">Fashion
-                                Accessories</a>
-                        </div>
-                    </li>
+                        <li class="nav-item dropdown men-dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Men
+                            </a>
+                            <div class="dropdown-menu" style="left: auto; right: 0;" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item"
+                                    href="{{ url_for('home', category='Topwear', gender='Men') }}">Topwear</a>
+                                <a class="dropdown-item"
+                                    href="{{ url_for('home', category='Bottomwear', gender='Men') }}">Bottomwear</a>
+                                <a class="dropdown-item"
+                                    href="{{ url_for('home', category='Indian & Festive Wear', gender='Men') }}">Indian
+                                    &
+                                    Festive Wear</a>
+                                <a class="dropdown-item"
+                                    href="{{ url_for('home', category='Innerwear & Sleepwear', gender='Men') }}">Innerwear
+                                    & Sleepwear</a>
+                                <a class="dropdown-item"
+                                    href="{{ url_for('home', category='Footwear', gender='Men') }}">Footwear</a>
+                                <a class="dropdown-item"
+                                    href="{{ url_for('home', category='Sports & Active Wear', gender='Men') }}">Sports &
+                                    Active Wear</a>
+                                <a class="dropdown-item"
+                                    href="{{ url_for('home', category='Gadgets', gender='Men') }}">Gadgets</a>
+                                <a class="dropdown-item"
+                                    href="{{ url_for('home', category='Fashion Accessories', gender='Men') }}">Fashion
+                                    Accessories</a>
+                            </div>
+                        </li>
 
-                    {% if session.logged_in %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('cart') }}"><i class="bi bi-bag-check-fill"></i></a>
-                    </li>
-                    {% if session.logged_in and session.is_admin %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('addproduct') }}"><i class="bi bi-plus-square-fill"></i></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('dashboard') }}"><i class="bi bi-graph-up-arrow"></i></a>
-                    </li>
-                    {% endif %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('account') }}"><i class="bi bi-person-fill"></i></a>
-                    </li>
-                    <li class="nav-item dropdown hamburg-dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="bi bi-list"></i>
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="left: auto; right: 0;">
-                            <a class="nav-username">Hello {{ session['user']['name'] }}</a>
-                            <hr class="nav-hr">
-                            <a class="nav-link" href="/user/signout">Sign Out</a>
-                        </div>
-                    </li>
-
-                    {% else %}
-                    <ul class="navbar-nav ml-auto">
+                        {% if session.logged_in %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('wishlist') }}"><i class="bi bi-heart-fill"></i></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('cart') }}"><i class="bi bi-bag-check-fill"></i></a>
+                        </li>
+                        {% if session.logged_in and session.is_admin %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('addproduct') }}"><i
+                                    class="bi bi-plus-square-fill"></i></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('dashboard') }}"><i
+                                    class="bi bi-graph-up-arrow"></i></a>
+                        </li>
+                        {% endif %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('account') }}"><i class="bi bi-person-fill"></i></a>
+                        </li>
                         <li class="nav-item dropdown hamburg-dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="bi bi-list"></i>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="left: auto; right: 0;">
-                                <a class="nav-link" href="{{ url_for('login') }}">Login</a>
-                                <a class="nav-link" href="{{ url_for('signup') }}">Signup</a>
+                                <a class="nav-username">Hello {{ session['user']['name'] }}</a>
+                                <hr class="nav-hr">
+                                <a class="nav-link" href="/user/signout">Sign Out</a>
                             </div>
                         </li>
+
+                        {% else %}
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item dropdown hamburg-dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="bi bi-list"></i>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown"
+                                    style="left: auto; right: 0;">
+                                    <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+                                    <a class="nav-link" href="{{ url_for('signup') }}">Signup</a>
+                                </div>
+                            </li>
+                        </ul>
+                        {% endif %}
                     </ul>
-                    {% endif %}
-                </ul>
-            </div>
-        </nav>
+                </div>
+            </nav>
+        </div>
+
+        {% block content %}
+        {% endblock %}
+
     </div>
-
-    {% block content %}
-    {% endblock %}
-
     <!-- Footer -->
     <footer class="bg-dark py-5 mt-5">
         <div class="container">
@@ -155,9 +166,12 @@
                 </div>
                 <div class="col-md-4">
                     <h4>Follow Us</h4>
-                    <p class="mb-1"><i class="bi bi-facebook me-1"></i> <a href="#" class="text-decoration-none text-white">Facebook</a></p>
-                    <p class="mb-1 mt-1"><i class="bi bi-twitter me-1"></i> <a href="#" class="text-decoration-none text-white">Twitter</a></p>
-                    <p class="mb-1 mt-1"><i class="bi bi-instagram me-1"></i> <a href="#" class="text-decoration-none text-white">Instagram</a></p>
+                    <p class="mb-1"><i class="bi bi-facebook me-1"></i> <a href="#"
+                            class="text-decoration-none text-white">Facebook</a></p>
+                    <p class="mb-1 mt-1"><i class="bi bi-twitter me-1"></i> <a href="#"
+                            class="text-decoration-none text-white">Twitter</a></p>
+                    <p class="mb-1 mt-1"><i class="bi bi-instagram me-1"></i> <a href="#"
+                            class="text-decoration-none text-white">Instagram</a></p>
                 </div>
                 <div class="col-md-4">
                     <h4 class="mb-4">Quick Links</h4>
@@ -170,7 +184,7 @@
             </div>
         </div>
     </footer>
-    
+
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 

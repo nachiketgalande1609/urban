@@ -2,7 +2,7 @@
 
 {% block content %}
     <div class="container">
-        <div class="card-wrapper">
+        <div class="card-wrapper mt-4">
             <div class="login_card">
     
                 <h1 class="center">Create an Account</h1>
@@ -20,6 +20,7 @@
     
                     <input type="submit" value="Sign Up" class="btn btn-primary">
                 </form>
+                <p class="text-center" style="color: rgb(139, 139, 139);">Already an user? <a href="{{ url_for('login') }}" style="text-decoration: none; color: black;">Login</a></p>
             </div>
         </div>
     </div>

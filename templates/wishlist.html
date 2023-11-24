@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    {% if wishlist_items %}
+    <h1>Your Wishlist</h1>
+    <div class="row">
+        <div class="product-cards">
+            <div class="row row-cols-2 row-cols-md-5">
+                {% for item in wishlist_items %}
+                <div class="col">
+                    <div class="card" style="border-radius: 0;">
+                        <a href="{{ url_for('product.product_detail', product_id=item.product_id) }}">
+                            <img src="../{{ item.image_path }}" class="card-img-top" alt="{{ item.product_name }} Image"
+                                style="border-radius: 0;">
+                        </a>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ item.product_name }}</h5>
+                            <p class="card-text">{{ item.category }}</p>
+                            <p class="card-text">₹ {{ item.price }}</p>
+                        </div>
+                        <div class="delete-wishlist-btn d-flex justify-content-end">
+                            <i class="bi bi-x-lg" onclick="removeFromWishlist('{{ item.product_id }}')"
+                                style="color: white;"></i>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="text-center empty-cart">
+        <h1>Your wishlist is empty</h1>
+        <a href="{{ url_for('home') }}" class="btn add-items-cart-btn">Add items to your wishlist</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
