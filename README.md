@@ -1,4 +1,5 @@
 
+
 <!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
 
 <a  name="readme-top"></a>
@@ -49,25 +50,17 @@
 
 <div  align="center">
 
-<a  href="https://github.com/othneildrew/Best-README-Template">
+<a  href="https://github.com/nachiketgalande1609/urban">
 
-<img  src="static/images/logo1.png"  alt="Logo"  height="80">
+<img  src="https://github.com/nachiketgalande1609/urban/blob/main/static/images/logo1.png?raw=true"  alt="Logo"  height="80">
 
 </a>
 
-  
-
-<h3  align="center">Best-README-Template</h3>
-
-  
-
 <p  align="center">
-
-An awesome README template to jumpstart your projects!
 
 <br  />
 
-<a  href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
+<a  href="https://github.com/nachiketgalande1609/urban"><strong>Explore the docs »</strong></a>
 
 <br  />
 
@@ -77,11 +70,11 @@ An awesome README template to jumpstart your projects!
 
 ·
 
-<a href="https://github.com/othneildrew/Best-README-Template/issues">Report Bug</a>
+<a href="https://github.com/nachiketgalande1609/urban/issues">Report Bug</a>
 
 ·
 
-<a href="https://github.com/othneildrew/Best-README-Template/issues">Request Feature</a>
+<a href="https://github.com/nachiketgalande1609/urban/issues">Request Feature</a>
 
 </p>
 
@@ -144,48 +137,37 @@ An awesome README template to jumpstart your projects!
   
   
   
+  
+Absolutely! Here's the updated section for your Flask project:
 
-<!-- ABOUT THE PROJECT -->
+markdownCopy code
+
+``<!-- ABOUT THE PROJECT -->
 
 ## About The Project
 
-  
+<div  align="center">
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+<img  src="https://github.com/nachiketgalande1609/urban/blob/main/screenshots/download.png?raw=true"  alt="Logo">
 
-  
+</div>
 
-There are many great README templates available on GitHub; however, I didn't find one that really suited my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
+Welcome to [Your Project Name], a robust Flask-based e-commerce platform designed to streamline various functionalities for online shopping. This project aims to provide a comprehensive solution for user management, product cataloging, shopping cart operations, wishlists, and administrative capabilities.
 
-  
+#### Why This Project?
 
-Here's why:
+- **Efficiency:** Focus your time on creating impactful solutions rather than repeatedly drafting READMEs.
+- **Enhanced Readability:** This README aims to serve as a comprehensive yet adaptable template for diverse projects.
+- **DRY Principles:** Implementing "Don't Repeat Yourself" philosophy even in documentation.
 
-* Your time should be focused on creating something amazing. A project that solves a problem and helps others
+This template might not fit every project's unique needs, but it's crafted to be versatile. I'll continually enhance it and welcome your contributions via pull requests or issues to make it even better. Thanks to everyone contributing to expanding this template's capabilities!
 
-* You shouldn't be doing the same tasks over and over like creating a README from scratch
-
-* You should implement DRY principles to the rest of your life :smile:
-
-  
-
-Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have contributed to expanding this template!
-
-  
-
-Use the `BLANK_README.md` to get started.
-
-  
+Start with `BLANK_README.md` to kickstart your project documentation.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-  
-  
-  
-
 ### Built With
 
-  
 
 This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
 
@@ -203,10 +185,6 @@ This section should list any major frameworks/libraries used to bootstrap your p
 
 * [![dotenv][dotenv]][dotenv-url]
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-  
-  
 
 <!-- Project Title -->
 
@@ -318,15 +296,37 @@ Explore the various functionalities of the application:
 -   **Shopping Cart & Wishlist:** Interact with the cart and wishlist functionalities.
 -   **Order Processing:** Complete a purchase and generate/download invoices.
 
+## Screenshots
+
+**Home Page**
+
+<img src='https://github.com/nachiketgalande1609/urban/blob/main/screenshots/download.png?raw=true'>
+
+**Product Details Page**
+
+<img src='https://github.com/nachiketgalande1609/urban/blob/main/screenshots/download%20(1).png?raw=true'>
+
+**Cart**
+
+<img src='https://github.com/nachiketgalande1609/urban/blob/main/screenshots/download%20(2).png?raw=true'>
+
+**Account Page**
+
+<img src='https://github.com/nachiketgalande1609/urban/blob/main/screenshots/download%20(3).png?raw=true'>
+
+**Admin Dashboard**
+
+<img src='https://github.com/nachiketgalande1609/urban/blob/main/screenshots/download%20(4).png?raw=true'>
+
 <!-- ROADMAP -->
 
 ## Roadmap
 
   
 
-- [x] Add Changelog
+- [ ] Add Changelog
 
-- [x] Add back to top links
+- [ ] Add back to top links
 
 - [ ] Add Additional Templates w/ Examples
 
