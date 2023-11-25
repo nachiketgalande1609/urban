@@ -187,6 +187,7 @@ input[type=submit] {
 
 .card-title {
   font-size: 1.25rem;
+  color: rgb(133, 113, 0);
   margin: 0;
 }
 
@@ -271,10 +272,6 @@ input[type=submit] {
 }
 
 .filter-card {
-  border: solid rgb(212, 212, 212) 1px;
-  border-radius: 10px;
-  padding: 20px;
-  margin-bottom: 10px;
   margin-top: 25px;
 }
 
@@ -454,9 +451,87 @@ footer {
   background: #626262;
 }
 
+.nav-link:hover {
+  color: rgb(180, 153, 0);
+}
+
+.btn-primary:hover {
+  background-color: rgb(80, 80, 80);
+}
+
 .add-to-wishlist-btn {
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-  z-index: 1; /* Ensure the button is above the card content */
+  background-color: #fff;
+  color: #ff0000;
+  border: solid 1px #ff0000;
+  margin-top: 10px;
+  width: 300px;
+}
+
+.add-to-wishlist-btn:hover {
+  background-color: #d50000;
+  color: #fff;
+}
+
+.category-text {
+  color: #6a6a6a;
+  font-weight: 100;
+}
+
+.price-text {
+  font-weight: 700;
+}
+
+.spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 9999;
+}
+
+.spinner-inner {
+  width: 50px;
+  height: 50px;
+  border: 3px solid transparent;
+  border-top-color: rgb(133, 113, 0); /* Change color as needed */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+body.loaded .spinner {
+  display: none;
+}
+
+.filter-heading {
+  text-decoration: none;
+  color: #000;
+}
+
+.filter-heading-div {
+  padding: 5px;
+  margin: 0;
+}
+
+.filter-collapsible {
+  padding-left: 20px;
+  padding-top: 10px;
+}
+
+.filter-section {
+  border-bottom: solid #d1d1d1 1px;
+  padding-bottom: 20px;
 }

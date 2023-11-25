@@ -38,38 +38,49 @@
 
         <div class="col-lg-2 col-md-3 col-sm-3">
             <div class="sidebar filter-card">
-                <h1>Filters</h1>
+                <h1 class="ms-2">Filters</h1>
                 <div class="filters mt-3">
-                    <div class="form-check">
-                        <label class="form-check-label">Gender:</label>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="filter-men" value="men">
-                            <label class="form-check-label" for="filter-men">Men</label>
+                    <div class="filter-section">
+                        <div class="filter-heading-div">
+                            <a href="#genderFilter" class="filter-heading" data-bs-toggle="collapse" role="button"
+                                aria-expanded="false" aria-controls="genderFilter">
+                                <i class="bi bi-plus"></i> Gender
+                            </a>
                         </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="filter-women" value="women">
-                            <label class="form-check-label" for="filter-women">Women</label>
+                        <div class="collapse filter-collapsible" id="genderFilter">
+                            <form name="gender-filter-form">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="filter-men" value="men">
+                                    <label class="form-check-label" for="filter-men">Men</label>
+                                    <input class="form-check-input" type="checkbox" id="filter-women" value="women">
+                                    <label class="form-check-label" for="filter-women">Women</label>
+                                </div>
+                            </form>
                         </div>
                     </div>
 
-                    <div class="form-check mt-3">
-                        <label class="form-check-label">Color:</label>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="filter-black" value="black">
-                            <label class="form-check-label" for="filter-black">Black</label>
-                            <input class="form-check-input" type="checkbox" id="filter-white" value="white">
-                            <label class="form-check-label" for="filter-white">White</label>
-                            <input class="form-check-input" type="checkbox" id="filter-red" value="red">
-                            <label class="form-check-label" for="filter-red">Red</label>
-                            <input class="form-check-input" type="checkbox" id="filter-green" value="green">
-                            <label class="form-check-label" for="filter-green">Green</label>
-                            <input class="form-check-input" type="checkbox" id="filter-blue" value="blue">
-                            <label class="form-check-label" for="filter-blue">Blue</label>
+                    <div class="filter-section mt-3">
+                        <div class="filter-heading-div">
+                            <a href="#colorFilter" class="filter-heading" data-bs-toggle="collapse" role="button"
+                                aria-expanded="false" aria-controls="colorFilter">
+                                <i class="bi bi-plus"></i> Color
+                            </a>
+                        </div>
+                        <div class="collapse filter-collapsible" id="colorFilter">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="filter-black" value="black">
+                                <label class="form-check-label" for="filter-black">Black</label>
+                                <input class="form-check-input" type="checkbox" id="filter-white" value="white">
+                                <label class="form-check-label" for="filter-white">White</label>
+                            </div>
+                            <!-- Add other color checkboxes -->
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+
         <!-- End Sidebar -->
 
         <div class="col-lg-10 col-md-9 col-sm-9">
@@ -127,12 +138,10 @@
                                     </button>
                                 </div>
                             </a>
-                            <i class="bi bi-heart-fill add-to-wishlist-btn" data-product-id="{{ product._id }}"
-                                style="color: red; font-size: 1.5rem; position: absolute; bottom: 10px; right: 10px;"></i>
-                            <div class="card-body">
+                            <div class="card-body text-center">
                                 <h5 class="card-title">{{ product.name }}</h5>
-                                <p class="card-text">{{ product.category }}</p>
-                                <p class="card-text">₹ {{ product.price }}</p>
+                                <p class="card-text category-text">{{ product.category }}</p>
+                                <p class="card-text price-text">₹{{ product.price }}</p>
                             </div>
                         </div>
                     </div>

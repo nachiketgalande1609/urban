@@ -1,6 +1,8 @@
 from flask import Flask, render_template, redirect, session, url_for, request, jsonify
 from functools import wraps
 from user.routes import user_bp
+from cart.routes import cart_bp
+from wishlist.routes import wishlist_bp
 from product.routes import product_bp
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
@@ -12,6 +14,9 @@ app = Flask(__name__)
 # Register the user and product blueprint routes with the Flask app
 app.register_blueprint(user_bp)
 app.register_blueprint(product_bp)
+app.register_blueprint(cart_bp)
+app.register_blueprint(wishlist_bp)
+
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -45,6 +50,51 @@ def admin_required(f):
             return redirect(url_for('home'))
     return decorated_function
 
+def get_user_id():
+    return session.get('user').get('_id')
+
+# Login route
+@app.route('/login/')
+def login():
+    return render_template('login.html')
+
+# Signup route
+@app.route('/signup/')
+def signup():
+    return render_template('signup.html')
+
+# Add Product route
+@app.route('/addproduct/')
+@login_required
+@admin_required # Give access to this page only if the user is an admin
+def addproduct():
+    return render_template('addproduct.html')
+
+# Cart route
+@app.route('/cart/')
+@login_required
+def cart():
+    user_id = get_user_id()
+    cart_with_product_details, total_price = get_cart_items(user_id)
+    return render_template('cart.html', cart_items=cart_with_product_details, total_price=total_price)
+
+# Wishlist route
+@app.route('/wishlist/')
+@login_required
+def wishlist():
+    user_id = get_user_id()
+    wishlist_with_product_details = get_wishlist_items(user_id)
+    return render_template('wishlist.html', wishlist_items=wishlist_with_product_details)
+
+# Address route
+@app.route('/address/')
+@login_required
+def address():
+    user_id = get_user_id()
+    address = db.users.find_one({'_id': user_id}, {'_id':0, 'address':1})
+    cart_with_product_details, total_price = get_cart_items(user_id)
+    return render_template('address.html', address=address, cart_items=cart_with_product_details, total_price=total_price)
+
 # Home route
 @app.route('/home', methods=['GET'])
 @app.route('/', methods=['GET'])
@@ -59,12 +109,18 @@ def home():
 
     filters = {}
 
-    if selected_category:
-        filters['category'] = selected_category
     if selected_gender:
         filters['gender'] = selected_gender
     if search_query:
-        filters['name'] = {'$regex': f'.*{search_query}.*', '$options': 'i'}
+        filters['$or'] = [
+            {'name': {'$regex': f'.*{search_query}.*', '$options': 'i'}},
+            {'category': {'$regex': f'.*{search_query}.*', '$options': 'i'}}
+        ]
+
+    if selected_category:
+        filters['category'] = selected_category
+    else:
+        selected_category=''
 
     products = db.products.find(filters)
     if sort_order == 'asc':
@@ -83,22 +139,11 @@ def home():
     return render_template('home.html', products=products, user=user, selected_category=selected_category,
                            product_count=product_count, search_query=search_query, pagination=pagination)
 
-
-# Login route
-@app.route('/login/')
-def login():
-    return render_template('login.html')
-
-# Signup route
-@app.route('/signup/')
-def signup():
-    return render_template('signup.html')
-
 # Account route
 @app.route('/account/')
 @login_required
 def account():
-    user_id = session.get('user').get('_id')
+    user_id = get_user_id()
     user = db.users.find_one({'_id': user_id})
     order_history = db.orders.find({'user_id': user_id})
     order_history = order_history.sort("created_at", -1)
@@ -110,13 +155,6 @@ def account():
     
     print(user_id)
     return render_template('account.html', order_history=formatted_order_history, user=user)
-
-# Add Product route
-@app.route('/addproduct/')
-@login_required
-@admin_required # Give access to this page only if the user is an admin
-def addproduct():
-    return render_template('addproduct.html')
 
 # Get cart details for the current user
 def get_cart_items(user_id):
@@ -136,42 +174,6 @@ def get_cart_items(user_id):
 
     return cart_with_product_details, total_price
 
-# Cart route
-@app.route('/cart/')
-@login_required
-def cart():
-    user_id = session.get('user').get('_id')
-    cart_with_product_details, total_price = get_cart_items(user_id)
-    return render_template('cart.html', cart_items=cart_with_product_details, total_price=total_price)
-
-# Wishlist route
-@app.route('/wishlist/')
-@login_required
-def wishlist():
-    user_id = session.get('user').get('_id')
-    wishlist_with_product_details = get_wishlist_items(user_id)
-    return render_template('wishlist.html', wishlist_items=wishlist_with_product_details)
-
-# Add item to wishlist on button click
-@app.route('/add_to_wishlist', methods=['POST'])
-def add_to_cart():
-    from app import db
-    if 'user_id' in request.form and 'product_id' in request.form:
-        user_id = request.form['user_id']
-        product_id = request.form['product_id']
-        existing_item = db.wishlist.find_one({'user_id': user_id, 'product_id': product_id})
-        if existing_item:
-            return jsonify({"message": "Product already exists in wishlist"}), 400
-        else:
-            wishlist_item = {
-                'user_id': user_id,
-                'product_id': product_id,
-            }
-            db.wishlist.insert_one(wishlist_item)
-            return jsonify({"message": "Product added to wishlist successfully"}), 200
-    else:
-        return jsonify({"error": "Missing user ID or product ID"}), 400
-
 def get_wishlist_items(user_id):
     user_wishlist_items = db.wishlist.find({'user_id': user_id})
     wishlist_with_product_details = []
@@ -186,24 +188,6 @@ def get_wishlist_items(user_id):
             item['category'] = product_details.get('category')
             wishlist_with_product_details.append(item)
     return wishlist_with_product_details
-
-# Remove item from wishlist
-@app.route('/remove_from_wishlist/<item_id>', methods=['POST'])
-def remove_from_wishlist(item_id):
-    from app import db
-    if db.wishlist.delete_one({"product_id": item_id}):
-        return jsonify({"message": "Product deleted from wishlist successfully"}), 200
-    else:
-        return jsonify({"error": "Missing user ID or product ID"}), 400
-
-# Address route
-@app.route('/address/')
-@login_required
-def address():
-    user_id = session.get('user').get('_id')
-    address = db.users.find_one({'_id': user_id}, {'_id':0, 'address':1})
-    cart_with_product_details, total_price = get_cart_items(user_id)
-    return render_template('address.html', address=address, cart_items=cart_with_product_details, total_price=total_price)
 
 # Insert order details into orders collection
 def insert_order(user_id, order_number, product_ids, total_price, total_amount, cgst, sgst, delivery_date, address, cart_with_product_details):
@@ -242,13 +226,13 @@ def insert_order(user_id, order_number, product_ids, total_price, total_amount, 
     db.orders.insert_one(order)
     return None
 
-# Download invoice route
+# Download invoice pdf
 @app.route('/invoice')
 def invoice():
     import pdfkit
     from flask import make_response
     from datetime import datetime, timedelta
-    user_id = session.get('user').get('_id')
+    user_id = get_user_id()
     address = db.users.find_one({'_id': user_id}, {'_id': 0, 'address': 1})
     cart_with_product_details, total_price = get_cart_items(user_id)
     order_number = str(uuid.uuid4().int)[:8]
@@ -278,7 +262,7 @@ def invoice():
 # Route for dashboard page
 @app.route('/dashboard/')
 @login_required
-@admin_required # Give access to this page only if the user is an admin
+@admin_required
 def dashboard():
     users = db.users.find()
     products = db.products.find()
@@ -304,6 +288,8 @@ def dashboard():
 
     return render_template('dashboard.html', user_count=user_count, product_count=product_count,
                            order_count=order_count, categories=categories, revenues=revenues)
+
+
 # if __name__ == '__main__':
 #     app.run(host='0.0.0.0', port=5000)
 

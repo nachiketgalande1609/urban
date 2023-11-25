@@ -78,11 +78,8 @@ $(document).ready(function () {
             method: 'GET',
             success: function (response) {
                 var user_id = response.user_id;
-                console.log(product_id);
-                console.log(user_id);
-
                 $.ajax({
-                    url: '../user/add_to_cart',
+                    url: '../cart/add_to_cart',
                     method: 'POST',
                     data: {
                         product_id: product_id,
@@ -91,6 +88,7 @@ $(document).ready(function () {
                     },
                     success: function (response) {
                         $('.modal-background').addClass('show');
+                        $('.modal-content').text('Item added to Cart');
                         $('.modal-content').fadeIn(); // Show the alert content
                         setTimeout(function () {
                             $('.modal-background').removeClass('show');
@@ -120,11 +118,8 @@ $(document).ready(function () {
             method: 'GET',
             success: function (response) {
                 var user_id = response.user_id;
-                console.log(product_id);
-                console.log(user_id);
-
                 $.ajax({
-                    url: '../add_to_wishlist',
+                    url: '/wishlist/add_to_wishlist',
                     method: 'POST',
                     data: {
                         product_id: product_id,
@@ -132,6 +127,7 @@ $(document).ready(function () {
                     },
                     success: function (response) {
                         $('.modal-background').addClass('show');
+                        $('.modal-content').text('Item added to Wishlist');
                         $('.modal-content').fadeIn(); // Show the alert content
                         setTimeout(function () {
                             $('.modal-background').removeClass('show');
@@ -153,9 +149,8 @@ $(document).ready(function () {
 
 // remove item from cart
 function removeFromCart(itemId) {
-    console.log(itemId);
     $.ajax({
-        url: '../user/remove_from_cart/' + itemId,
+        url: '../cart/remove_from_cart/' + itemId,
         method: 'POST',
         success: function (response) {
             console.log('Success');
@@ -167,10 +162,10 @@ function removeFromCart(itemId) {
     });
 }
 
+// remove item from wishlist
 function removeFromWishlist(itemId) {
-    console.log(itemId);
     $.ajax({
-        url: '../remove_from_wishlist/' + itemId,
+        url: '/wishlist/remove_from_wishlist/' + itemId,
         method: 'POST',
         success: function (response) {
             console.log('Success');
@@ -267,8 +262,21 @@ $(document).ready(function () {
     });
 });
 
+// Search function
 $("form[name=search-form]").submit(function (e) {
     e.preventDefault(); // Prevent the default form submission
     var searchQuery = $(this).find('input[name=search_query]').val(); // Get the search query from the form input
     window.location.href = `/home?search=${searchQuery}`;
+});
+
+// Spinner animation
+document.addEventListener("DOMContentLoaded", function () {
+    setTimeout(function () {
+        document.body.classList.add("loaded");
+    }, 500); // 2 seconds delay before adding the 'loaded' class
+});
+
+// Toggle filter + -
+$('.filter-heading').on('click', function () {
+    $(this).find('.bi').toggleClass('bi-plus bi-dash');
 });

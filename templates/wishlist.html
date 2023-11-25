@@ -14,10 +14,10 @@
                             <img src="../{{ item.image_path }}" class="card-img-top" alt="{{ item.product_name }} Image"
                                 style="border-radius: 0;">
                         </a>
-                        <div class="card-body">
+                        <div class="card-body text-center">
                             <h5 class="card-title">{{ item.product_name }}</h5>
-                            <p class="card-text">{{ item.category }}</p>
-                            <p class="card-text">₹ {{ item.price }}</p>
+                            <p class="card-text category-text">{{ item.category }}</p>
+                            <p class="card-text price-text">₹{{ item.price }}</p>
                         </div>
                         <div class="delete-wishlist-btn d-flex justify-content-end">
                             <i class="bi bi-x-lg" onclick="removeFromWishlist('{{ item.product_id }}')"
