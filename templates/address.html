@@ -12,7 +12,7 @@
                     <form method="POST">
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="selected_address"
-                                value="{{ address.id }}">
+                                value="{{ address.id }}" required>
                             <label class="form-check-label" for="address{{ address.id }}">
                                 {{ address.address }}
                             </label>
@@ -20,7 +20,7 @@
                     </form>
                     {% else %}
                     <p>No saved addresses found.</p>
-                    <button class="btn btn-primary" onclick="showAddAddressPopup()">Add Address</button>
+                    <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#addAddressModal">Add Address</button>
                     {% endif %}
                 </div>
             </div>
@@ -43,6 +43,28 @@
 <div class="modal-background">
     <div class="modal-content alert alert-success" role="alert">
         Your payment was successful! Your invoice has been automatically downloaded. Thank you for your purchase!
+    </div>
+</div>
+<div class="modal fade" id="addAddressModal" tabindex="-1" role="dialog" aria-labelledby="addAddressModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content address-modal">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addAddressModalLabel">Add Address</h5>
+                <button type="button" class="close modal-close-btn" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/address" method="POST">
+                    <div class="form-group">
+                        <label for="inputAddress">Address</label>
+                        <input type="text" class="form-control" id="inputAddress" name="address" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save Address</button>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

@@ -3,7 +3,7 @@
 {% block content %}
 <div class="container">
     <div class="card-wrapper">
-        <div class="login_card">
+        <div class="login_card mt-5">
 
             <h1 class="center">Add Product</h1>
             <form name="add_product_form" enctype="multipart/form-data">
@@ -14,11 +14,11 @@
                 <label for="price">Price</label>
                 <input type="text" name="price" class="field" required>
 
-                <label for="display_image">Display Image</label>
-                <input type="file" name="display_image" accept="image/*" class="field" required>
+                <label for="display_image" class="form-label">Display Image</label>
+                <input type="file" name="display_image" accept="image/*" class="field form-control" id="formFile" required>
 
-                <label for="images">Images</label>
-                <input type="file" name="images[]" accept="image/*" multiple class="field" required>
+                <label for="images" class="form-label">Images</label>
+                <input type="file" name="images[]" accept="image/*" multiple class="field form-control" id="formFileMultiple" required>
 
                 <label for="gender">Gender</label>
                 <select name="gender" id="gender" class="field">

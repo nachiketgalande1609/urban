@@ -87,10 +87,14 @@ def wishlist():
     return render_template('wishlist.html', wishlist_items=wishlist_with_product_details)
 
 # Address route
-@app.route('/address/')
+@app.route('/address/', methods=['POST', 'GET'])
 @login_required
 def address():
     user_id = get_user_id()
+    added_address = request.form.get('address')
+    if added_address:
+        db.users.update_one({'_id': user_id}, {'$set': {'address': added_address}})
+
     address = db.users.find_one({'_id': user_id}, {'_id':0, 'address':1})
     cart_with_product_details, total_price = get_cart_items(user_id)
     return render_template('address.html', address=address, cart_items=cart_with_product_details, total_price=total_price)
@@ -103,25 +107,32 @@ def home():
     from flask_paginate import Pagination, get_page_args
     user = User()
     selected_category = request.args.get('category')
-    selected_gender = request.args.get('gender')
+    dropdown_selected_gender = request.args.get('gen')
     sort_order = request.args.get('sort')
     search_query = request.args.get('search')
-
+    selected_colors = request.args.getlist('color')
+    selected_genders = request.args.getlist('gender')
+    selected_categories = request.args.getlist('categories')
+    print(selected_categories)
     filters = {}
-
-    if selected_gender:
-        filters['gender'] = selected_gender
+    if selected_genders:
+        filters['gender'] = {'$in': selected_genders}
+    if selected_colors:
+        filters['colors'] = {'$in': selected_colors}
+    if selected_categories:
+        filters['category'] = {'$in': selected_categories}
+    if dropdown_selected_gender:
+        filters['gender'] = dropdown_selected_gender
     if search_query:
         filters['$or'] = [
             {'name': {'$regex': f'.*{search_query}.*', '$options': 'i'}},
             {'category': {'$regex': f'.*{search_query}.*', '$options': 'i'}}
         ]
-
+    print(filters)
     if selected_category:
         filters['category'] = selected_category
     else:
         selected_category=''
-
     products = db.products.find(filters)
     if sort_order == 'asc':
         products = products.sort("price", 1)
@@ -137,7 +148,8 @@ def home():
     pagination = Pagination(page=page, total=product_count, per_page=per_page, css_framework='bootstrap')
 
     return render_template('home.html', products=products, user=user, selected_category=selected_category,
-                           product_count=product_count, search_query=search_query, pagination=pagination)
+                           product_count=product_count, search_query=search_query, pagination=pagination, 
+                           selected_genders=selected_genders, selected_colors=selected_colors, selected_categories=selected_categories, filters=filters)
 
 # Account route
 @app.route('/account/')

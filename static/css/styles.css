@@ -250,6 +250,17 @@ input[type=submit] {
   max-width: 300px; /* Adjust width as needed */
 }
 
+.address-modal {
+  display: block; /* Show the modal content */
+  background-color: #fff; /* Reset background color */
+  color: inherit; /* Use the default text color */
+  padding: 0; /* Reset padding */
+  border-radius: 0; /* Reset border radius */
+  box-shadow: none; /* Remove box shadow */
+  text-align: left; /* Reset text alignment */
+  max-width: none;
+}
+
 /* Alert Success Color */
 .alert-success {
   background-color: #d4edda;
@@ -419,7 +430,7 @@ footer {
   padding: 10px;
 }
 
-.bi-x-lg {
+.remove-from-wishlist-btn {
   color: white; 
   text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
 }
@@ -534,4 +545,23 @@ body.loaded .spinner {
 .filter-section {
   border-bottom: solid #d1d1d1 1px;
   padding-bottom: 20px;
+}
+
+.filter-list-item {
+  list-style: none;
+  margin-right: 10px;
+  border: #888888 solid 1px;
+  border-radius: 20px;
+  padding: 6px 20px;
+}
+
+.clear-filters {
+  border: none;
+  box-shadow: none;
+  padding-left: 0 !important;
+}
+
+.modal-close-btn {
+  border: none;
+  background-color: #fff;
 }

@@ -280,3 +280,22 @@ document.addEventListener("DOMContentLoaded", function () {
 $('.filter-heading').on('click', function () {
     $(this).find('.bi').toggleClass('bi-plus bi-dash');
 });
+
+// Sidebar filtering
+$(document).ready(function(){
+    const urlParams = new URLSearchParams(window.location.search);
+    $('input[type=checkbox]').each(function(){
+        const paramName = $(this).attr('name');
+        if(urlParams.has(paramName) && urlParams.getAll(paramName).includes($(this).val())){
+            $(this).prop('checked', true);
+        }
+    });
+    
+    $('form[name="filter-form"]').on('change', function(){
+        $('#filter-form').submit(); // Submit the form when checkboxes change
+    });
+});
+
+function showAddAddressPopup() {
+    $('#addAddressModal').modal('show');
+}

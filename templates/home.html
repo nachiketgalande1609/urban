@@ -39,56 +39,139 @@
         <div class="col-lg-2 col-md-3 col-sm-3">
             <div class="sidebar filter-card">
                 <h1 class="ms-2">Filters</h1>
-                <div class="filters mt-3">
-                    <div class="filter-section">
-                        <div class="filter-heading-div">
-                            <a href="#genderFilter" class="filter-heading" data-bs-toggle="collapse" role="button"
-                                aria-expanded="false" aria-controls="genderFilter">
-                                <i class="bi bi-plus"></i> Gender
-                            </a>
-                        </div>
-                        <div class="collapse filter-collapsible" id="genderFilter">
-                            <form name="gender-filter-form">
+                <form action="/home" method="get" name="filter-form" id="filter-form">
+                    <div class="filters mt-3">
+
+                        <div class="filter-section">
+                            <div class="filter-heading-div">
+                                <a href="#categoryFilter" class="filter-heading" data-bs-toggle="collapse" role="button"
+                                    aria-expanded="false" aria-controls="categoryFilter">
+                                    <i class="bi bi-plus"></i> Categories
+                                </a>
+                            </div>
+                            <div class="collapse filter-collapsible" id="categoryFilter">
+
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="filter-men" value="men">
+                                    <input class="form-check-input" type="checkbox" id="filter-bottomwear" name="categories"
+                                        value="Bottomwear">
+                                    <label class="form-check-label" for="filter-bottomwear">Bottomwear</label>
+                                    <input class="form-check-input" type="checkbox" id="filter-dresses" name="categories"
+                                        value="Dresses">
+                                    <label class="form-check-label" for="filter-dresses">Dresses</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="filter-section mt-3">
+                            <div class="filter-heading-div">
+                                <a href="#genderFilter" class="filter-heading" data-bs-toggle="collapse" role="button"
+                                    aria-expanded="false" aria-controls="genderFilter">
+                                    <i class="bi bi-plus"></i> Gender
+                                </a>
+                            </div>
+                            <div class="collapse filter-collapsible" id="genderFilter">
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="filter-men" name="gender"
+                                        value="Men">
                                     <label class="form-check-label" for="filter-men">Men</label>
-                                    <input class="form-check-input" type="checkbox" id="filter-women" value="women">
+                                    <input class="form-check-input" type="checkbox" id="filter-women" name="gender"
+                                        value="Women">
                                     <label class="form-check-label" for="filter-women">Women</label>
                                 </div>
-                            </form>
-                        </div>
-                    </div>
-
-                    <div class="filter-section mt-3">
-                        <div class="filter-heading-div">
-                            <a href="#colorFilter" class="filter-heading" data-bs-toggle="collapse" role="button"
-                                aria-expanded="false" aria-controls="colorFilter">
-                                <i class="bi bi-plus"></i> Color
-                            </a>
-                        </div>
-                        <div class="collapse filter-collapsible" id="colorFilter">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="filter-black" value="black">
-                                <label class="form-check-label" for="filter-black">Black</label>
-                                <input class="form-check-input" type="checkbox" id="filter-white" value="white">
-                                <label class="form-check-label" for="filter-white">White</label>
                             </div>
-                            <!-- Add other color checkboxes -->
+                        </div>
+
+                        <div class="filter-section mt-3">
+                            <div class="filter-heading-div">
+                                <a href="#colorFilter" class="filter-heading" data-bs-toggle="collapse" role="button"
+                                    aria-expanded="false" aria-controls="colorFilter">
+                                    <i class="bi bi-plus"></i> Color
+                                </a>
+                            </div>
+                            <div class="collapse filter-collapsible" id="colorFilter">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="filter-red" name="color"
+                                        value="Red" style="background-color: #ff0000;">
+                                    <label class="form-check-label" for="filter-red">Red</label>
+                                    <input class="form-check-input" type="checkbox" id="filter-green" name="color"
+                                        value="Green" style="background-color: #00ff00;">
+                                    <label class="form-check-label" for="filter-green">Green</label>
+                                    <input class="form-check-input" type="checkbox" id="filter-blue" name="color"
+                                        value="Blue" style="background-color: #0000ff;">
+                                    <label class="form-check-label" for="filter-blue">Blue</label>
+                                    <input class="form-check-input" type="checkbox" id="filter-white" name="color"
+                                        value="White" style="background-color: #ffffff;">
+                                    <label class="form-check-label" for="filter-white">White</label>
+                                    <input class="form-check-input" type="checkbox" id="filter-yellow" name="color"
+                                        value="Yellow" style="background-color: #fff000;">
+                                    <label class="form-check-label" for="filter-yellow">Yellow</label>
+                                    <input class="form-check-input" type="checkbox" id="filter-gold" name="color"
+                                        value="Gold" style="background-color: #c4a700;">
+                                    <label class="form-check-label" for="filter-gold">Gold</label>
+                                    <input class="form-check-input" type="checkbox" id="filter-beige" name="color"
+                                        value="Beige" style="background-color: #e4d5b7;">
+                                    <label class="form-check-label" for="filter-beige">Beige</label>
+                                    <input class="form-check-input" type="checkbox" id="filter-brown" name="color"
+                                        value="Brown" style="background-color: #964b00;">
+                                    <label class="form-check-label" for="filter-brown">Brown</label>
+                                    <input class="form-check-input" type="checkbox" id="filter-black" name="color"
+                                        value="Black" style="background-color: #000000;">
+                                    <label class="form-check-label" for="filter-black">Black</label>
+                                    <input class="form-check-input" type="checkbox" id="filter-gray" name="color"
+                                        value="Gray" style="background-color: #888888;">
+                                    <label class="form-check-label" for="filter-gray">Gray</label>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
-
 
         <!-- End Sidebar -->
 
         <div class="col-lg-10 col-md-9 col-sm-9">
-
+            <ul class="list-group list-group-horizontal mt-3 ms-0">
+                {% if selected_categories %}
+                {% for category in selected_categories %}
+                <li class="filter-list-item">{{ category }}</li>
+                {% endfor %}
+                {% endif %}
+                {% if selected_genders %}
+                {% for gender in selected_genders %}
+                <li class="filter-list-item">{{ gender }}</li>
+                {% endfor %}
+                {% endif %}
+                {% if selected_colors %}
+                {% for color in selected_colors %}
+                <li class="filter-list-item">{{ color }}</li>
+                {% endfor %}
+                {% endif %}
+                {% if filters %}
+                <li class="filter-list-item clear-filters"><a href="{{ url_for('home') }}"><i class="bi bi-x-lg" style="color: rgb(0, 0, 0);"></i></a>
+                {% endif %}
+            </ul>
             <div class="d-flex justify-content-between align-items-center breadrow">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ url_for('home') }}" class="bread_home">All</a></li>
+                    {% if selected_category %}
                     <li class="breadcrumb-item active" aria-current="page">{{ selected_category }}</li>
+                    {% endif %}
+                    {% if selected_genders %}
+                    <li class="breadcrumb-item active" aria-current="page">
+                        {% for gender in selected_genders %}
+                        {{ gender }}
+                        {% endfor %}
+                    </li>
+                    {% endif %}
+                    {% if selected_colors %}
+                    <li class="breadcrumb-item active" aria-current="page">
+                        {% for color in selected_colors %}
+                        {{ color }}
+                        {% endfor %}
+                    </li>
+                    {% endif %}
                 </ol>
                 <form id="sortForm" class="form-inline">
                     <div class="form-group mb-0">
@@ -108,6 +191,7 @@
                 <span class="product_count">Showing results for: {{ search_query }}</span>
             </div>
             {% endif %}
+
             <!-- Unchanged HTML structure -->
             <div class="product-cards">
                 <div class="row row-cols-2 row-cols-md-5">
