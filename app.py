@@ -44,6 +44,7 @@ def login_required(f):
 def admin_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
+        print(session)
         if session.get('logged_in') and session.get('is_admin'):
             return f(*args, **kwargs)
         else:
@@ -113,7 +114,6 @@ def home():
     selected_colors = request.args.getlist('color')
     selected_genders = request.args.getlist('gender')
     selected_categories = request.args.getlist('categories')
-    print(selected_categories)
     filters = {}
     if selected_genders:
         filters['gender'] = {'$in': selected_genders}
@@ -128,7 +128,6 @@ def home():
             {'name': {'$regex': f'.*{search_query}.*', '$options': 'i'}},
             {'category': {'$regex': f'.*{search_query}.*', '$options': 'i'}}
         ]
-    print(filters)
     if selected_category:
         filters['category'] = selected_category
     else:
@@ -164,9 +163,9 @@ def account():
     for order in order_history:
         order['created_at'] = order['created_at'].strftime("%a, %d %b %Y")  # Convert datetime to custom format
         formatted_order_history.append(order)
-    
-    print(user_id)
+
     return render_template('account.html', order_history=formatted_order_history, user=user)
+
 
 # Get cart details for the current user
 def get_cart_items(user_id):
