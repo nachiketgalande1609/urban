@@ -89,15 +89,7 @@
 
 </details>
 
-  
-  
-  
-  
-Absolutely! Here's the updated section for your Flask project:
 
-markdownCopy code
-
-``<!-- ABOUT THE PROJECT -->
 
 ## About The Project
 
