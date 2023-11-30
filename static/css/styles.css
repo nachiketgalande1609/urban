@@ -565,3 +565,7 @@ body.loaded .spinner {
   border: none;
   background-color: #fff;
 }
+
+.product-link {
+  text-decoration: none;
+}

@@ -268,7 +268,7 @@
                                 </div>
                             </a>
                             <div class="card-body text-center">
-                                <h5 class="card-title">{{ product.name }}</h5>
+                                <a href="{{ url_for('product.product_detail', product_id=product._id) }}" class="product-link"><h5 class="card-title">{{ product.name }}</h5></a>
                                 <p class="card-text category-text">{{ product.category }}</p>
                                 <p class="card-text price-text">₹{{ product.price }}</p>
                             </div>
