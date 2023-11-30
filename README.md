@@ -99,7 +99,7 @@
 
 </div>
 
-Welcome to [Your Project Name], a robust Flask-based e-commerce platform designed to streamline various functionalities for online shopping. This project aims to provide a comprehensive solution for user management, product cataloging, shopping cart operations, wishlists, and administrative capabilities.
+Welcome to URBAN, a robust Flask-based e-commerce platform designed to streamline various functionalities for online shopping. This project aims to provide a comprehensive solution for user management, product cataloging, shopping cart operations, wishlists, and administrative capabilities.
 
 #### Why This Project?
 
@@ -127,30 +127,6 @@ Customize and expand upon this template to create an engaging online shopping ex
 <!-- Project Description -->
 
 An extensive Flask-based web application providing user authentication, product management, shopping cart functionality, wishlists, and admin features.
-
-  
-
-<!-- Table of Contents -->
-
-## Table of Contents
-
-- [Introduction](##introduction)
-
-- [Features](##features)
-
-- [Getting Started](##getting-started)
-
-- [Usage](##usage)
-
-- [Screenshots](##Screenshots)
-
-- [Roadmap](##Roadmap)
-
-- [Contributing](##contributing)
-
-- [License](##license)
-
-  
 
 <!-- Introduction -->
 
