@@ -230,54 +230,6 @@ Explore the various functionalities of the application:
 
 <img src='https://github.com/nachiketgalande1609/urban/blob/main/screenshots/download%20(4).png?raw=true'>
 
-<!-- ROADMAP -->
-
-## Roadmap
-
-  
-
-- [ ] Add Changelog
-
-- [ ] Add back to top links
-
-- [ ] Add Additional Templates w/ Examples
-
-- [ ] Add "components" document to easily copy & paste sections of the readme
-
-- [ ] Multi-language Support
-
-- [ ] Chinese
-
-- [ ] Spanish
-
-  
-
-See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a full list of proposed features (and known issues).
-
-  
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-  
-  
-<!-- CONTRIBUTING -->
-
-## Contributing
-
-  
-We welcome contributions! To contribute to this project:
-
-1.  **Fork the repository.**
-2.  **Create a new branch (`git checkout -b feature/AmazingFeature`).**
-3.  **Commit your changes (`git commit -m 'Add some AmazingFeature'`).**
-4.  **Push to the branch (`git push origin feature/AmazingFeature`).**
-5.  **Open a pull request.**
-
-<!-- LICENSE -->
-
-## License
-
-Distributed under the [MIT License](https://chat.openai.com/c/LICENSE). See `LICENSE` for more information.  
 
 <!-- CONTACT -->
 
@@ -289,7 +241,7 @@ Nachiket- [@your_twitter](https://twitter.com/your_username) - email@example.com
 
   
 
-Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
+Project Link: [https://github.com/nachiketgalande1609/Urban](https://github.com/nachiketgalande1609/Urban)
 
   
 
