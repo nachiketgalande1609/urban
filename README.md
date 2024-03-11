@@ -1,4 +1,5 @@
 
+
 <a  name="readme-top"></a>
 
 [![LinkedIn][linkedin-shield]][linkedin-url]
@@ -17,79 +18,7 @@
 
 <p  align="center">
 
-<br  />
-
-<a  href="https://github.com/nachiketgalande1609/urban"><strong>Explore the docs »</strong></a>
-
-<br />
-
-<a href="https://github.com/othneildrew/Best-README-Template">View Demo</a>
-
-
-<a href="https://github.com/nachiketgalande1609/urban/issues">Report Bug</a>
-
-
-<a href="https://github.com/nachiketgalande1609/urban/issues">Request Feature</a>
-
-</p>
-
-</div>
-
-  
-  
-  
-
-<!-- TABLE OF CONTENTS -->
-
-<details>
-
-<summary>Table of Contents</summary>
-
-<ol>
-
-<li>
-
-<a href="#about-the-project">About The Project</a>
-
-<ul>
-
-<li><a href="#built-with">Built With</a></li>
-
-</ul>
-
-</li>
-
-<li>
-
-<a href="#getting-started">Getting Started</a>
-
-<ul>
-
-<li><a href="#prerequisites">Prerequisites</a></li>
-
-<li><a href="#installation">Installation</a></li>
-
-</ul>
-
-</li>
-
-<li><a href="#usage">Usage</a></li>
-
-<li><a href="#roadmap">Roadmap</a></li>
-
-<li><a href="#contributing">Contributing</a></li>
-
-<li><a href="#license">License</a></li>
-
-<li><a href="#contact">Contact</a></li>
-
-<li><a href="#acknowledgments">Acknowledgments</a></li>
-
-</ol>
-
-</details>
-
-
+<br>
 
 ## About The Project
 
@@ -174,7 +103,7 @@ _Below is an example of how you can instruct your audience on installing and set
 
 ```sh
 
-git clone https://github.com/your_username_/Project-Name.git
+git clone https://github.com/nachiketgalande1609/urban
 
 ```
 
@@ -237,7 +166,7 @@ Explore the various functionalities of the application:
 
   
 
-Nachiket- [@your_twitter](https://twitter.com/your_username) - email@example.com
+Nachiket- nachiketgalande1609@gmail.com
 
   
 
@@ -246,22 +175,6 @@ Project Link: [https://github.com/nachiketgalande1609/Urban](https://github.com/
   
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-  
-  
-  
-
-<!-- ACKNOWLEDGMENTS -->
-
-## Acknowledgments
-
--   [Flask](https://flask.palletsprojects.com/)
--   [MongoDB](https://www.mongodb.com/)
--   [Flask-Paginate](https://pythonhosted.org/Flask-paginate/)
--   [dotenv](https://github.com/theskumar/python-dotenv)
-  
-  
-  
 
 <!-- MARKDOWN LINKS & IMAGES -->
 
