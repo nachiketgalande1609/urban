@@ -14,6 +14,8 @@
 
 <img  src="https://github.com/nachiketgalande1609/urban/blob/main/static/images/logo1.png?raw=true"  alt="Logo"  height="80">
 
+</div>
+
 </a>
 
 <p  align="center">
