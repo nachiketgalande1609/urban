@@ -26,7 +26,7 @@
 
 <div  align="center">
 
-<img  src="https://github.com/nachiketgalande1609/urban/blob/main/screenshots/download.png?raw=true"  alt="Logo">
+<img  src="https://github.com/nachiketgalande1609/urban/blob/main/screenshots/download_mac.png?raw=true"  alt="Logo">
 
 </div>
 
@@ -143,23 +143,23 @@ Explore the various functionalities of the application:
 
 **Home Page**
 
-<img src='https://github.com/nachiketgalande1609/urban/blob/main/screenshots/download.png?raw=true'>
+<img src='https://github.com/nachiketgalande1609/urban/blob/main/screenshots/download_mac.png?raw=true'>
 
 **Product Details Page**
 
-<img src='https://github.com/nachiketgalande1609/urban/blob/main/screenshots/download%20(1).png?raw=true'>
+<img src='https://github.com/nachiketgalande1609/urban/blob/main/screenshots/download%20(1)_mac.png?raw=true'>
 
 **Cart**
 
-<img src='https://github.com/nachiketgalande1609/urban/blob/main/screenshots/download%20(2).png?raw=true'>
+<img src='https://github.com/nachiketgalande1609/urban/blob/main/screenshots/download%20(2)_mac.png?raw=true'>
 
 **Account Page**
 
-<img src='https://github.com/nachiketgalande1609/urban/blob/main/screenshots/download%20(3).png?raw=true'>
+<img src='https://github.com/nachiketgalande1609/urban/blob/main/screenshots/download%20(3)_mac.png?raw=true'>
 
 **Admin Dashboard**
 
-<img src='https://github.com/nachiketgalande1609/urban/blob/main/screenshots/download%20(4).png?raw=true'>
+<img src='https://github.com/nachiketgalande1609/urban/blob/main/screenshots/download%20(4)_mac.png?raw=true'>
 
 
 <!-- CONTACT -->
